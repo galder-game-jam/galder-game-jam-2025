@@ -1,9 +1,9 @@
+#include "raylib-assert.h"
+#include "raylib-cpp.hpp"
 #include <string>
 #include <vector>
-#include "raylib-cpp.hpp"
-#include "raylib-assert.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     TraceLog(LOG_INFO, "---------------------");
     TraceLog(LOG_INFO, "TEST: raylib-cpp test");
 
@@ -27,11 +27,13 @@ int main(int argc, char *argv[]) {
         AssertEqual(position.x, 310);
         AssertEqual(raylib::Window::IsReady(), false);
 
-        raylib::Vector2 size{50,50};
+        raylib::Vector2 size{50, 100};
         raylib::Vector2 halfsize = size / 2.0f;
 
         AssertEqual(size.x, 50);
+        AssertEqual(size.y, 100);
         AssertEqual(halfsize.x, 25);
+        AssertEqual(halfsize.y, 50);
 
         raylib::Vector2 doublesize = size * 2.0f;
         AssertEqual(size.x, 50);
@@ -58,14 +60,16 @@ int main(int argc, char *argv[]) {
     {
         // Loading
         raylib::Image image(path + "/resources/feynman.png");
-        Assert(image.IsReady());
+        Assert(image.IsValid());
 
         // Chaining
-        image.Crop(100, 100)
-            .Resize(50, 50);
+        image.Crop(100, 100).Resize(50, 50);
         AssertEqual(image.GetWidth(), 50);
         AssertEqual(image.GetHeight(), 50);
     }
+
+    // Keyboard
+    { AssertNot(raylib::Keyboard::IsKeyPressed(KEY_MINUS)); }
 
     // raylib::LoadDirectoryFiles()
     {
@@ -104,7 +108,7 @@ int main(int argc, char *argv[]) {
     // Wave
     {
         raylib::Wave wave(path + "/resources/weird.wav");
-        Assert(wave.IsReady(), "Expected wave to be loaded correctly");
+        Assert(wave.IsValid(), "Expected wave to be loaded correctly");
     }
 
     // RaylibException
@@ -112,12 +116,24 @@ int main(int argc, char *argv[]) {
         bool passed = false;
         try {
             raylib::Texture texture("notfound.png");
-        }
-        catch (raylib::RaylibException& error) {
+        } catch (raylib::RaylibException& error) {
             error.TraceLog(LOG_INFO);
             passed = true;
         }
         Assert(passed, "Expected to have a RaylibException to be thrown");
+    }
+
+    // Load FileData
+    {
+        raylib::FileData file(path + "/resources/weird.wav");
+        Assert(file.GetBytesRead() > 0, "Expected file to be loaded correctly");
+    }
+
+    // Load FileText
+    {
+        raylib::FileText text(path + "/resources/lorem.txt");
+        Assert(text.GetLength() > 0, "Expected file to be loaded correctly");
+        AssertEqual(text.ToString().substr(0, 5), "Lorem");
     }
 
     TraceLog(LOG_INFO, "TEST: raylib-cpp test");

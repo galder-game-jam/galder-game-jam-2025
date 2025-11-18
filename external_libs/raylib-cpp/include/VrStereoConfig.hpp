@@ -1,37 +1,31 @@
 #ifndef RAYLIB_CPP_INCLUDE_VRSTEREOCONFIG_HPP_
 #define RAYLIB_CPP_INCLUDE_VRSTEREOCONFIG_HPP_
 
-#include "./raylib.hpp"
 #include "./raylib-cpp-utils.hpp"
+#include "./raylib.hpp"
 
 namespace raylib {
 /**
  * VR stereo config functions for VR simulator
  */
-class VrStereoConfig : public ::VrStereoConfig  {
- public:
-    VrStereoConfig(const ::VrDeviceInfo& info) {
-        Load(info);
-    }
+class VrStereoConfig : public ::VrStereoConfig {
+public:
+    VrStereoConfig(const ::VrDeviceInfo& info) { Load(info); }
 
     /**
      * Load VR stereo config for VR simulator device parameters
      */
-    inline void Load(const ::VrDeviceInfo& info) {
-        set(LoadVrStereoConfig(info));
-    }
+    void Load(const ::VrDeviceInfo& info) { set(LoadVrStereoConfig(info)); }
 
     /**
      * Unload VR stereo config
      */
-    ~VrStereoConfig() {
-        Unload();
-    }
+    ~VrStereoConfig() { Unload(); }
 
     /**
      * Begin stereo rendering
      */
-    inline VrStereoConfig& BeginMode() {
+    VrStereoConfig& BeginMode() {
         ::BeginVrStereoMode(*this);
         return *this;
     }
@@ -39,7 +33,7 @@ class VrStereoConfig : public ::VrStereoConfig  {
     /**
      * End stereo rendering
      */
-    inline VrStereoConfig& EndMode() {
+    VrStereoConfig& EndMode() {
         ::EndVrStereoMode();
         return *this;
     }
@@ -47,11 +41,8 @@ class VrStereoConfig : public ::VrStereoConfig  {
     /**
      * Unload VR stereo config
      */
-    inline void Unload() {
-        ::UnloadVrStereoConfig(*this);
-    }
-
- protected:
+    void Unload() { ::UnloadVrStereoConfig(*this); }
+protected:
     void set(const ::VrStereoConfig& config) {
         projection[0] = config.projection[0];
         projection[1] = config.projection[1];
@@ -71,8 +62,8 @@ class VrStereoConfig : public ::VrStereoConfig  {
         scaleIn[1] = config.scaleIn[1];
     }
 };
-}  // namespace raylib
+} // namespace raylib
 
 using RVrStereoConfig = raylib::VrStereoConfig;
 
-#endif  // RAYLIB_CPP_INCLUDE_VRSTEREOCONFIG_HPP_
+#endif // RAYLIB_CPP_INCLUDE_VRSTEREOCONFIG_HPP_

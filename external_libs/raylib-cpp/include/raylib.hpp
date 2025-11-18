@@ -14,16 +14,24 @@ extern "C" {
 
 #include RAYLIB_H_FILE // NOLINT
 
-#if !defined(RAYLIB_VERSION_MAJOR) || !defined(RAYLIB_VERSION_MINOR) || RAYLIB_VERSION_MAJOR < 4 || RAYLIB_VERSION_MINOR < 5
-#error "raylib-cpp requires at least raylib 4.5.0"
+#if !defined(RAYLIB_VERSION_MAJOR) || !defined(RAYLIB_VERSION_MINOR)
+#error "raylib-cpp requires raylib >= 5"
 #endif
 
-#if RAYLIB_VERSION_MINOR > 5
-#error "raylib-cpp targets raylib 4.5. Use the `next` branch for the next version of raylib."
+#if RAYLIB_VERSION_MAJOR < 5
+#error "raylib-cpp requires raylib >= 5"
+#endif
+
+#if RAYLIB_VERSION_MAJOR > 5
+#error "raylib-cpp requires raylib ~5.0. Use the `next` branch for the next version of raylib."
+#endif
+
+#if RAYLIB_VERSION_MINOR < 1
+    #error "raylib-cpp targets raylib 5.1 or higher."
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // RAYLIB_CPP_INCLUDE_RAYLIB_HPP_
+#endif // RAYLIB_CPP_INCLUDE_RAYLIB_HPP_

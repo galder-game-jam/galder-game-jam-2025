@@ -33,14 +33,18 @@
 
 #include "./AudioDevice.hpp"
 #include "./AudioStream.hpp"
+#include "./AutomationEventList.hpp"
 #include "./BoundingBox.hpp"
 #include "./Camera2D.hpp"
 #include "./Camera3D.hpp"
 #include "./Color.hpp"
+#include "./FileData.hpp"
+#include "./FileText.hpp"
 #include "./Font.hpp"
 #include "./Functions.hpp"
 #include "./Gamepad.hpp"
 #include "./Image.hpp"
+#include "./Keyboard.hpp"
 #include "./Material.hpp"
 #include "./Matrix.hpp"
 #include "./Mesh.hpp"
@@ -49,8 +53,8 @@
 #include "./Mouse.hpp"
 #include "./Music.hpp"
 #include "./Ray.hpp"
-#include "./RaylibException.hpp"
 #include "./RayCollision.hpp"
+#include "./RaylibException.hpp"
 #include "./Rectangle.hpp"
 #include "./RenderTexture.hpp"
 #include "./Shader.hpp"
@@ -70,7 +74,7 @@
  * All raylib-cpp classes and functions appear in the raylib namespace.
  */
 namespace raylib {
-    // Nothing.
-}  // namespace raylib
+// Nothing.
+} // namespace raylib
 
-#endif  // RAYLIB_CPP_INCLUDE_RAYLIB_CPP_HPP_
+#endif // RAYLIB_CPP_INCLUDE_RAYLIB_CPP_HPP_

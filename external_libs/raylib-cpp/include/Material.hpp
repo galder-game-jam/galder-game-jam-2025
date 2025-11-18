@@ -4,25 +4,21 @@
 #include <string>
 #include <vector>
 
-#include "./raylib.hpp"
 #include "./raylib-cpp-utils.hpp"
+#include "./raylib.hpp"
 
 namespace raylib {
 /**
  * Material type (generic)
  */
 class Material : public ::Material {
- public:
-    Material(const ::Material& material) {
-        set(material);
-    }
+public:
+    Material(const ::Material& material) { set(material); }
 
     /**
      * Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps)
      */
-    Material() {
-        set(LoadMaterialDefault());
-    }
+    Material() { set(LoadMaterialDefault()); }
 
     Material(const Material&) = delete;
 
@@ -37,9 +33,7 @@ class Material : public ::Material {
         other.params[3] = 0.0f;
     }
 
-    ~Material() {
-        Unload();
-    }
+    ~Material() { Unload(); }
 
     /**
      * Load materials from model file
@@ -80,7 +74,7 @@ class Material : public ::Material {
     /**
      * Unload material from memory
      */
-    inline void Unload() {
+    void Unload() {
         if (maps != nullptr) {
             ::UnloadMaterial(*this);
             maps = nullptr;
@@ -90,7 +84,7 @@ class Material : public ::Material {
     /**
      * Set texture for a material map type (MAP_DIFFUSE, MAP_SPECULAR...)
      */
-    inline Material& SetTexture(int mapType, const ::Texture2D& texture) {
+    Material& SetTexture(int mapType, const ::Texture2D& texture) {
         ::SetMaterialTexture(this, mapType, texture);
         return *this;
     }
@@ -98,25 +92,20 @@ class Material : public ::Material {
     /**
      * Draw a 3d mesh with material and transform
      */
-    inline void DrawMesh(const ::Mesh& mesh, ::Matrix transform) const {
-        ::DrawMesh(mesh, *this, transform);
-    }
+    void DrawMesh(const ::Mesh& mesh, ::Matrix transform) const { ::DrawMesh(mesh, *this, transform); }
 
     /**
      * Draw multiple mesh instances with material and different transforms
      */
-    inline void DrawMesh(const ::Mesh& mesh, ::Matrix* transforms, int instances) const {
+    void DrawMesh(const ::Mesh& mesh, ::Matrix* transforms, int instances) const {
         ::DrawMeshInstanced(mesh, *this, transforms, instances);
     }
 
     /**
      * Check if material is ready
      */
-    inline bool IsReady() const {
-        return ::IsMaterialReady(*this);
-    }
-
- protected:
+    bool IsValid() const { return ::IsMaterialValid(*this); }
+protected:
     void set(const ::Material& material) {
         shader = material.shader;
         maps = material.maps;
@@ -126,8 +115,8 @@ class Material : public ::Material {
         params[3] = material.params[3];
     }
 };
-}  // namespace raylib
+} // namespace raylib
 
 using RMaterial = raylib::Material;
 
-#endif  // RAYLIB_CPP_INCLUDE_MATERIAL_HPP_
+#endif // RAYLIB_CPP_INCLUDE_MATERIAL_HPP_

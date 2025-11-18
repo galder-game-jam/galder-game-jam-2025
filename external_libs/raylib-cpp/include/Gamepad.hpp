@@ -3,18 +3,16 @@
 
 #include <string>
 
-#include "./raylib.hpp"
 #include "./raylib-cpp-utils.hpp"
+#include "./raylib.hpp"
 
 namespace raylib {
 /**
  * Input-related functions: gamepads
  */
 class Gamepad {
- public:
-    Gamepad(int gamepadNumber = 0) {
-        set(gamepadNumber);
-    }
+public:
+    Gamepad(int gamepadNumber = 0) { set(gamepadNumber); }
     int number;
 
     GETTERSETTER(int, Number, number)
@@ -34,91 +32,71 @@ class Gamepad {
     /**
      * Detect if a gamepad is available
      */
-    inline bool IsAvailable() const {
-        return ::IsGamepadAvailable(number);
-    }
+    bool IsAvailable() const { return ::IsGamepadAvailable(number); }
 
     /**
      * Detect if a gamepad is available
      */
-    static inline bool IsAvailable(int number) {
-        return ::IsGamepadAvailable(number);
-    }
+    static bool IsAvailable(int number) { return ::IsGamepadAvailable(number); }
 
     /**
      * Return gamepad internal name id
      */
-    std::string GetName() const {
-        return ::GetGamepadName(number);
-    }
+    std::string GetName() const { return ::GetGamepadName(number); }
 
     /**
      * Return gamepad internal name id
      */
-    operator std::string() const {
-        return GetName();
-    }
+    operator std::string() const { return GetName(); }
 
     /**
      * Detect if a gamepad button has been pressed once
      */
-    inline bool IsButtonPressed(int button) const {
-        return ::IsGamepadButtonPressed(number, button);
-    }
+    bool IsButtonPressed(int button) const { return ::IsGamepadButtonPressed(number, button); }
 
     /**
      * Detect if a gamepad button is being pressed
      */
-    inline bool IsButtonDown(int button) const {
-        return ::IsGamepadButtonDown(number, button);
-    }
+    bool IsButtonDown(int button) const { return ::IsGamepadButtonDown(number, button); }
 
     /**
      * Detect if a gamepad button has been released once
      */
-    inline bool IsButtonReleased(int button) const {
-        return ::IsGamepadButtonReleased(number, button);
-    }
+    bool IsButtonReleased(int button) const { return ::IsGamepadButtonReleased(number, button); }
 
     /**
      * Detect if a gamepad button is NOT being pressed
      */
-    inline bool IsButtonUp(int button) const {
-        return ::IsGamepadButtonUp(number, button);
-    }
+    bool IsButtonUp(int button) const { return ::IsGamepadButtonUp(number, button); }
 
     /**
      * Get the last gamepad button pressed
      */
-    inline int GetButtonPressed() const {
-        return ::GetGamepadButtonPressed();
-    }
+    int GetButtonPressed() const { return ::GetGamepadButtonPressed(); }
 
     /**
      * Return gamepad axis count for a gamepad
      */
-    inline int GetAxisCount() const {
-        return ::GetGamepadAxisCount(number);
-    }
+    int GetAxisCount() const { return ::GetGamepadAxisCount(number); }
 
     /**
      * Return axis movement value for a gamepad axis
      */
-    inline float GetAxisMovement(int axis) const {
-        return ::GetGamepadAxisMovement(number, axis);
-    }
+    float GetAxisMovement(int axis) const { return ::GetGamepadAxisMovement(number, axis); }
 
-    inline int SetMappings(const std::string& mappings) {
-        return SetGamepadMappings(mappings.c_str());
-    }
+    int SetMappings(const std::string& mappings) { return SetGamepadMappings(mappings.c_str()); }
 
- protected:
-    inline void set(int gamepadNumber) {
-        number = gamepadNumber;
+    /**
+     * Set gamepad vibration for both motors (duration in seconds)
+     */
+    void SetVibration(float leftMotor, float rightMotor, float duration) {
+        ::SetGamepadVibration(number, leftMotor, rightMotor, duration);
     }
+protected:
+    void set(int gamepadNumber) { number = gamepadNumber; }
 };
-}  // namespace raylib
+} // namespace raylib
 
 using RGamepad = raylib::Gamepad;
 
-#endif  // RAYLIB_CPP_INCLUDE_GAMEPAD_HPP_
+#endif // RAYLIB_CPP_INCLUDE_GAMEPAD_HPP_

@@ -30,7 +30,7 @@ namespace ggj
 
         std::string path = m_resources.getResource(res);
         std::unique_ptr<raylib::Texture> tex = std::make_unique<raylib::Texture>(path);
-        if (!tex->IsReady())
+        if (!tex->IsValid())
         {
             m_logger.error(fmt::format("Error when attempting to load texture with id '{0}'. Path: '{1}'", (int32_t) id, path.c_str()));
             return false;

@@ -14,7 +14,7 @@ namespace ggj
     class Hud : public IGameObject<raylib::Vector2>
     {
         public:
-            Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures) : m_mapper {mapper}, m_textures {textures}
+            Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures, IInputManager<KeyboardKey> &inputManager) : m_mapper {mapper}, m_textures {textures}, m_inputManager {inputManager}
             {
                 m_isVisible = true;
             }
@@ -26,6 +26,11 @@ namespace ggj
                 m_origin = raylib::Vector2{20, 20};       // HUD position
             }
 
+            void setVisible(bool isVisible)
+            {
+                m_isVisible = isVisible;
+            }
+
             void rotate(float degrees) override {}
             void scale(float scale) override {}
             void move(const raylib::Vector2 &toMove) override {}
@@ -35,6 +40,11 @@ namespace ggj
             }
             void update(float timeDelta) override
             {
+                if(m_inputManager.keyPressed(KeyboardKey::F8))
+                {
+                    setVisible(!m_isVisible);
+                }
+
                 m_health = GetRandomValue(1, 5);
             }
             void draw() override
@@ -48,7 +58,8 @@ namespace ggj
 
         private:
             IMapper &m_mapper;
-            ggj::ITextureManager<TextureName, raylib::Texture> &m_textures;
+            ITextureManager<TextureName, raylib::Texture> &m_textures;
+            IInputManager<KeyboardKey> &m_inputManager;
 
             raylib::Vector2 m_size {};
             raylib::Vector2 m_origin {};

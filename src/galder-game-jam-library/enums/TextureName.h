@@ -79,6 +79,8 @@ namespace ggj
         MageBall = 203,
         DungeonPrison = 204,
         DungeonPrisonProps = 205,
+
+        HudRpg = 300,
     };
 }
 #endif //GAME_DEV_TEMPLATE_TEXTURENAME_H

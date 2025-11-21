@@ -20,7 +20,9 @@ auto buildInjector(ggj::ILogger &logger, raylib::Window &window)
             boost::di::bind<ggj::IDebugManager>().to<ggj::DebugManager>(),
             boost::di::bind<ggj::CollisionManager>(),
             boost::di::bind<raylib::Window>().to(window),
-            boost::di::bind<ggj::ILogger>().to(logger)
+            boost::di::bind<ggj::ILogger>().to(logger),
+            //boost::di::bind<ggj::Hud>().to<ggj::Hud>()
+            boost::di::bind<ggj::Hud>().in(boost::di::singleton)
     );
 
     return injector;

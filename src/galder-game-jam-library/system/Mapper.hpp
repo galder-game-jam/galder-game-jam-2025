@@ -155,6 +155,8 @@ namespace ggj
                 m_texToRes[TextureName::MageBall] = ResourceName::MageBall;
                 m_texToRes[TextureName::DungeonPrison] = ResourceName::DungeonPrison;
                 m_texToRes[TextureName::DungeonPrisonProps] = ResourceName::DungeonPrisonProps;
+
+                m_texToRes[TextureName::HudRpg] = ResourceName::HudRpg;
             };
 
             TextureName getTextureNameByString(const std::string &id) override

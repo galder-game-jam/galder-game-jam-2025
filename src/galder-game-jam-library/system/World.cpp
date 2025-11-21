@@ -3,6 +3,8 @@
 //
 
 #include "World.h"
+
+#include "../game/Hud.hpp"
 #include "../graphics/Sprite.h"
 
 namespace ggj
@@ -213,6 +215,8 @@ namespace ggj
             layer.second.update(timeDelta);
         }
 
+        m_hud.update(timeDelta);
+
         if (m_player != nullptr)
         {
             if(m_player->hasClearedLevel())
@@ -259,6 +263,7 @@ namespace ggj
             layer.second.draw();
         }
         m_camera.EndMode();
+        m_hud.draw();
     }
 
     void World::generatePhysicsObject(const std::string &name, b2Body *body, const ObjectGeneratorData &generatorData)

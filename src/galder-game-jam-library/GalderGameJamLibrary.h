@@ -37,6 +37,9 @@
 #include "game/interactables/Portal.h"
 #include "game/interactables/PowerUp.h"
 
+//Hud
+#include "game/Hud.hpp"
+
 //Managers
 #include "managers/AnimationManager.h"
 #include "managers/CollisionManager.h"

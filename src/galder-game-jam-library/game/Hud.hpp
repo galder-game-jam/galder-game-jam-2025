@@ -7,16 +7,14 @@
 
 #include "raylib-cpp.hpp"
 #include "../../gamedev-base/GameDevBase.h"
-#include "../system/UserData.hpp"
 
 namespace ggj
 {
-    class PhysicsObject;
 
     class Hud : public IGameObject<raylib::Vector2>
     {
         public:
-        explicit Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures) : m_mapper {mapper}, m_textures {textures}
+            Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures) : m_mapper {mapper}, m_textures {textures}
             {
                 m_isVisible = true;
             }
@@ -51,6 +49,7 @@ namespace ggj
         private:
             IMapper &m_mapper;
             ggj::ITextureManager<TextureName, raylib::Texture> &m_textures;
+
             raylib::Vector2 m_size {};
             raylib::Vector2 m_origin {};
             raylib::Color m_color {};

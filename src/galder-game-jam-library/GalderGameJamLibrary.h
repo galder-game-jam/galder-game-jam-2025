@@ -50,6 +50,8 @@
 #include "managers/InputManager.h"
 #include "managers/TextureManager.h"
 #include "managers/UserDataManager.hpp"
+#include "managers/ManagerDiCollection.hpp"
+
 #include "managers/WorldManager.h"
 
 //Network

@@ -54,7 +54,6 @@ namespace ggj
             //Generator logic
             void generatePhysicsObject(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
             void generatePlayer(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
-            void generatePlayer2(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
             void generateBat(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
             void generateSnake(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
             void generateCoin(const std::string &name, b2Body* body, const ObjectGeneratorData &generatorData);
@@ -85,7 +84,6 @@ namespace ggj
             int m_portalTimer{5};
 
             Player *m_player = nullptr;
-            Player2 *m_player2 = nullptr;
 
             Portal *m_portal = nullptr;
 

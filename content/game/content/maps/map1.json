@@ -2262,54 +2262,6 @@
                 {
                  "ellipse":true,
                  "height":32,
-                 "id":239,
-                 "name":"player2",
-                 "properties":[
-                        {
-                         "name":"is_player",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"is_static",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sprite",
-                         "type":"string",
-                         "value":"Wizard.png"
-                        }, 
-                        {
-                         "name":"sprite_size_x",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"sprite_size_y",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"userdata_objecttype",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"userdata_objecttype_enum",
-                         "type":"int",
-                         "value":1
-                        }],
-                 "rotation":0,
-                 "type":"PhysicsObject",
-                 "visible":true,
-                 "width":24,
-                 "x":608,
-                 "y":480
-                }, 
-                {
-                 "ellipse":true,
-                 "height":32,
                  "id":240,
                  "name":"player1",
                  "properties":[
@@ -2970,8 +2922,7 @@
                  "width":21.6705,
                  "x":1576.66475,
                  "y":270.58525
-                },
-            
+                }, 
                 {
                  "height":20.8295,
                  "id":429,
@@ -2982,7 +2933,8 @@
                  "width":21.6705,
                  "x":1701.49808333333,
                  "y":874.251916666667
-                }, 
+                },
+            
                 {
                  "height":20.8295,
                  "id":431,
@@ -4613,7 +4565,7 @@
          "value":10
         }],
  "renderorder":"left-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.2",
  "tileheight":32,
  "tilesets":[
         {

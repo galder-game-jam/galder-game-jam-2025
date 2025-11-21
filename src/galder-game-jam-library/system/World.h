@@ -42,6 +42,7 @@ namespace ggj
             void update(float timeDelta) override;
             void draw() override;
             std::string getLeadingPlayer() const;
+            Player *getPlayer();
             [[nodiscard]] int getEnemies() const;
             void reduceEnemyKillCountByOne();
             [[nodiscard]] int getNumberOfEnemiesLeft() const;

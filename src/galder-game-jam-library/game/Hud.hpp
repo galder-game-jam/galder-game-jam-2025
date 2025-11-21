@@ -22,10 +22,16 @@ namespace ggj
             void initialize()
             {
                 m_color = raylib::Color::White();
-                m_size = raylib::Vector2{200, 20};        // Example health bar size
-                m_origin = raylib::Vector2{20, 20};       // HUD position
+                m_size = raylib::Vector2{200, 20};
+                m_origin = raylib::Vector2{20, 20};
+
+                m_hudTexture = m_textures.get(TextureName::HudRpg);
             }
 
+            void setPlayer(Player *player)
+            {
+                m_currentPlayer = player;
+            }
             void setVisible(bool isVisible)
             {
                 m_isVisible = isVisible;
@@ -51,6 +57,16 @@ namespace ggj
             {
                 if (!m_isVisible) return;
 
+                raylib::Vector2 offset { 20, 50 };
+
+                raylib::Rectangle rect = {448.f, 180.f, 83, 63};
+                m_hudTexture->Draw(rect, raylib::Vector2{0 + offset.x,0 + offset.y});
+
+                // raylib::Rectangle rect2 = {150.f + offset.x, 100.f + offset.y, 128, 64};
+                // m_hudTexture->Draw(rect2, raylib::Vector2{70,70});
+                //
+                // raylib::Rectangle rect3 = {300.f + offset.x, 280.f + offset.y, 128, 64};
+                // m_hudTexture->Draw(rect3, raylib::Vector2{99,99});
 
                 DrawRectangle(100, 515, 400, 40, WHITE);
                 DrawText(TextFormat("Se på meg nå! Du har %i i liv", m_health), 110, 525, 20, RED);
@@ -60,6 +76,9 @@ namespace ggj
             IMapper &m_mapper;
             ITextureManager<TextureName, raylib::Texture> &m_textures;
             IInputManager<KeyboardKey> &m_inputManager;
+            raylib::Texture *m_hudTexture;
+
+            Player *m_currentPlayer = nullptr;
 
             raylib::Vector2 m_size {};
             raylib::Vector2 m_origin {};

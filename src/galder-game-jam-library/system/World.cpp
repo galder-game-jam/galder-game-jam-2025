@@ -686,6 +686,11 @@ namespace ggj
         //return "both";
     }
 
+    Player* World::getPlayer()
+    {
+        return m_player;
+    }
+
     int World::getEnemies() const
     {
         return m_numberOfEnemies;

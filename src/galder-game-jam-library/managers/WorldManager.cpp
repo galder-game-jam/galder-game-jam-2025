@@ -13,6 +13,7 @@ namespace ggj
         {
             m_logger.debug("FOUND project!");
             parseProject();
+            m_hud.initialize();
         }
 
         return projectExists;
@@ -98,6 +99,7 @@ namespace ggj
             m_worlds[m_currentStageIndex]->update(timeDelta);
             if(m_worlds[m_currentStageIndex]->isLevelCleared())
             {
+                m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_worlds[m_currentStageIndex]->setLevelCleared(false);
                 ++m_currentStageIndex;
                 if(m_worlds.count(m_currentStageIndex) == 0)

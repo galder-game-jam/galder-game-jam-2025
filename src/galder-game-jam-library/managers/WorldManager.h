@@ -58,7 +58,7 @@ namespace ggj
 
             std::unique_ptr<tson::Project> m_project{nullptr};
 
-            std::map<int32_t, std::unique_ptr<ggj::IWorld<int32_t>>> m_worlds;
+            std::map<int32_t, std::unique_ptr<ggj::World>> m_worlds;
             //Stage m_currentStage{Stage::None};
             int32_t m_startupIndex{-1};
             int32_t m_currentStageIndex {-1};

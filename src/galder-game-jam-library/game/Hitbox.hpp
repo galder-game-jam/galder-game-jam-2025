@@ -39,6 +39,7 @@ namespace ggj
             
             void beginContact(PhysicsObject *a, PhysicsObject *b, b2Contact *contact) override
             {
+
                 if(m_isActive && b != m_owner)
                 {
                     if(b->getUserData()->getObjectType() == ObjectType::Enemy)

@@ -14,6 +14,7 @@ namespace ggj
             m_logger.debug("FOUND project!");
             parseProject();
             m_hud.initialize();
+            m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
         }
 
         return projectExists;

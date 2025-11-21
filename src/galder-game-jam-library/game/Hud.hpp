@@ -62,11 +62,17 @@ namespace ggj
                 raylib::Rectangle rect = {448.f, 180.f, 83, 63};
                 m_hudTexture->Draw(rect, raylib::Vector2{0 + offset.x,0 + offset.y});
 
-                // raylib::Rectangle rect2 = {150.f + offset.x, 100.f + offset.y, 128, 64};
-                // m_hudTexture->Draw(rect2, raylib::Vector2{70,70});
-                //
-                // raylib::Rectangle rect3 = {300.f + offset.x, 280.f + offset.y, 128, 64};
-                // m_hudTexture->Draw(rect3, raylib::Vector2{99,99});
+                auto numberOfLives = m_currentPlayer->getLives();
+
+                int lifeSize = 9;
+                for (int i = 0; i < numberOfLives; ++i)
+                {
+                    raylib::Rectangle rect2 = {592.f, 186.f, 9, 12};
+                    m_hudTexture->Draw(rect2, raylib::Vector2{83 + 1 + lifeSize * i + offset.x,6 + offset.y});
+                }
+
+                raylib::Rectangle rect3 = {551.f, 182.f, 31, 19};
+                m_hudTexture->Draw(rect3, raylib::Vector2{83 + 1 + lifeSize * numberOfLives + offset.x,2 + offset.y});
 
                 DrawRectangle(100, 515, 400, 40, WHITE);
                 DrawText(TextFormat("Se på meg nå! Du har %i i liv", m_health), 110, 525, 20, RED);

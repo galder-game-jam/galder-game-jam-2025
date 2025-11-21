@@ -213,21 +213,14 @@ namespace ggj
             layer.second.update(timeDelta);
         }
 
-        if (m_player != nullptr && m_player2 != nullptr)
+        if (m_player != nullptr)
         {
             if(m_player->hasClearedLevel())
             {
                 setLevelCleared(true);
                 m_player->setHasClearedLevel(false);
-                m_player2->setHasClearedLevel(false);
             }
 
-            if(m_player2->hasClearedLevel())
-            {
-                setLevelCleared(true);
-                m_player->setHasClearedLevel(false);
-                m_player2->setHasClearedLevel(false);
-            }
             m_camera.target = (m_player->cameraShouldFollowPlayer())
                               ? raylib::Vector2((float) (int) (std::round(m_player->getPosition().x) - (float) 800.f / 2),
                                                 (float) (int) (std::round(m_player->getPosition().y) - (float) 600.f / 2))
@@ -236,7 +229,6 @@ namespace ggj
             Colori color = {0, 50, 150, 255};
 
             m_debugManager.setText(1, fmt::format("Player1 | coins: {0} | lives: {1} | kills: {2} | position: ({3},{4})", m_player->getScore(), m_player->getLives(), m_player->getUserData()->enemiesKilled, (int) m_player->getPosition().x, (int) m_player->getPosition().y), color);
-            m_debugManager.setText(2, fmt::format("Player2 | coins: {0} | lives: {1} | kills: {2} | position: ({3},{4})", m_player2->getScore(), m_player2->getLives(), m_player2->getUserData()->enemiesKilled, (int) m_player2->getPosition().x, (int) m_player2->getPosition().y), color);
 
             m_debugManager.setText(3, fmt::format("Enemies: {0} ({1} remaining) {2}", (int) m_numberOfEnemies, getNumberOfEnemiesLeft(), getNumberOfEnemiesLeft() == 0 ? "Portal open":"Portal closed"), color);
 #ifdef GAME_DEV_DEBUG
@@ -273,8 +265,6 @@ namespace ggj
     {
         if (name == "player1")
             generatePlayer(name, body, generatorData);
-        else if (name == "player2")
-            generatePlayer2(name, body, generatorData);
         else if (name == "bat")
         {
             generateBat(name, body, generatorData);
@@ -341,40 +331,6 @@ namespace ggj
                 Hitbox *hitbox = m_player->getHitbox();
                 
                 m_userDataManager.addUserData(body, m_player);
-                m_userDataManager.addUserData(hitbox->getBody(), hitbox);
-            }
-        }
-    }
-
-    void World::generatePlayer2(const std::string &name, b2Body *body, const ObjectGeneratorData &generatorData)
-    {
-        TextureName id = m_mapper.getTextureNameByString(generatorData.sprite);
-        if (id != TextureName::None)
-        {
-            raylib::Texture *tex = m_textures.get(id);
-            if (tex != nullptr)
-            {
-                raylib::Rectangle rect = {0.f, 0.f, (float) generatorData.originalSize.x, (float) generatorData.originalSize.y};
-                raylib::Vector2 origin = {(float) rect.width / 2, (float) rect.height / 2};
-                raylib::Vector2 v = {(float) generatorData.pos.x + origin.x, (float) generatorData.pos.y + origin.y};
-
-                raylib::Rectangle r = {(float) rect.x, (float) rect.y, (float) rect.width, (float) rect.height};
-
-                if (generatorData.spriteSize.x != 0 && generatorData.spriteSize.y != 0)
-                {
-                    r.width = generatorData.spriteSize.x;
-                    r.height = generatorData.spriteSize.y;
-                }
-
-                raylib::Vector2 spriteSize = raylib::Vector2(r.width, r.height);
-
-                m_player2 = m_layers[generatorData.layerIndex].createGameObject<ggj::Player2>(this, m_input, m_animationManager, m_mapper, body,
-                                                                                            raylib::Vector2((float) generatorData.size.x,
-                                                                                                            (float) generatorData.size.y),
-                                                                                            spriteSize, r,
-                                                                                            tex, generatorData.userData);
-                Hitbox *hitbox = m_player2->getHitbox();
-                m_userDataManager.addUserData(body, m_player2);
                 m_userDataManager.addUserData(hitbox->getBody(), hitbox);
             }
         }
@@ -712,17 +668,17 @@ namespace ggj
 
     int World::getNumberOfEnemiesLeft() const
     {
-        const int enemiesLeft = m_numberOfEnemies - (m_player->getUserData()->enemiesKilled + m_player2->getUserData()->enemiesKilled);
+        const int enemiesLeft = m_numberOfEnemies - (m_player->getUserData()->enemiesKilled);
         return enemiesLeft;
     }
 
     std::string World::getLeadingPlayer() const
     {
-        if(m_player->getScore() > m_player2->getScore())
+        //if(m_player->getScore() > m_player2->getScore())
             return m_player->getUserData()->getName();
-        if(m_player->getScore() < m_player2->getScore())
-            return m_player2->getUserData()->getName();
-        return "both";
+        //if(m_player->getScore() < m_player2->getScore())
+          //  return m_player2->getUserData()->getName();
+        //return "both";
     }
 
     int World::getEnemies() const

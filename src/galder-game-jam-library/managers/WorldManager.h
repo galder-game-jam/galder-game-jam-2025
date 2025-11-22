@@ -19,14 +19,13 @@ namespace ggj
     class WorldManager : public ggj::IWorldManager
     {
         public:
-            WorldManager(ggj::ILogger &logger, ggj::IResourceManager<ResourceName> &resources, IMapper &mapper,
-                         ggj::ITextureManager<TextureName, raylib::Texture> &textures, raylib::Window &window,
-                         ggj::IInputManager<ggj::KeyboardKey> &input, ggj::CollisionManager & collisionManager,
-                         ggj::IDebugManager &debugManager, ggj::IAnimationManager<ggj::Animation, ggj::AnimationName> &animationManager,
-                         IUserDataManager<PhysicsObject*> &userDataManager)
-                    : m_logger{logger}, m_resources{resources}, m_mapper{mapper}, m_textures{textures},
-                      m_window{window}, m_input{input}, m_collisionManager {collisionManager},
-                      m_debugManager {debugManager}, m_animationManager {animationManager}, m_userDataManager{userDataManager}
+
+            WorldManager(ggj::ILogger &logger, IMapper &mapper,
+                         raylib::Window &window, ggj::ManagerDiCollection &managers, Hud &hud)
+                    : m_managers {managers}, m_logger{logger},  m_mapper{mapper}, m_window{window},
+                      m_hud {hud}, m_resources {managers.resources}, m_textures{managers.textures}, m_input{managers.input},
+                      m_collisionManager {managers.collision}, m_debugManager{managers.debug}, m_animationManager{managers.animation},
+                      m_userDataManager{managers.userData}
             {
 
             }
@@ -44,6 +43,7 @@ namespace ggj
             //Stage getStageByFilename(const std::string &filename);
             [[nodiscard]] int32_t getStageIndexByFilename(const std::string &filename) const;
 
+            ggj::ManagerDiCollection m_managers;
             ggj::ILogger &m_logger;
             ggj::IResourceManager<ResourceName> &m_resources;
             IMapper &m_mapper;
@@ -54,10 +54,11 @@ namespace ggj
             ggj::IDebugManager &m_debugManager;
             ggj::IAnimationManager<ggj::Animation, ggj::AnimationName> &m_animationManager;
             IUserDataManager<PhysicsObject*> &m_userDataManager;
+            Hud &m_hud;
 
             std::unique_ptr<tson::Project> m_project{nullptr};
 
-            std::map<int32_t, std::unique_ptr<ggj::IWorld<int32_t>>> m_worlds;
+            std::map<int32_t, std::unique_ptr<ggj::World>> m_worlds;
             //Stage m_currentStage{Stage::None};
             int32_t m_startupIndex{-1};
             int32_t m_currentStageIndex {-1};

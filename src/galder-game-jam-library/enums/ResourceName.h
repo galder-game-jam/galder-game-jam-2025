@@ -93,6 +93,9 @@ namespace ggj
         MageBall = 203,
         DungeonPrison = 204,
         DungeonPrisonProps = 205,
+
+        HudRpg = 300,
+        HudRpgSubset = 301,
     };
 }
 

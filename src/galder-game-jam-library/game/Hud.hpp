@@ -28,6 +28,8 @@ namespace ggj
 
                 m_portraitOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 50 };
                 m_coinOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 120 };
+                m_playerPositionOffset = raylib::Vector2{ m_position.x + 570, m_position.y + 570 };
+
                 m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
             }
 
@@ -56,11 +58,11 @@ namespace ggj
 
                 m_health = static_cast<float>(m_currentPlayer->getLives());
                 m_coins = m_currentPlayer->getScore();
+                m_playerPosition = raylib::Vector2 {m_currentPlayer->getPosition() };
             }
-            void draw() override
-            {
-                if (!m_isVisible) return;
 
+            void drawPlayerPortrait()
+            {
                 m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
 
                 for (int i = 0; i < m_health; ++i)
@@ -68,12 +70,39 @@ namespace ggj
                     m_hudTexture->Draw(m_lifeRect, raylib::Vector2{m_portraitRect.width  + m_lifeRect.width * i + m_portraitOffset.x,6 + m_portraitOffset.y});
                 }
                 m_hudTexture->Draw(m_lifeEnd, raylib::Vector2{m_portraitRect.width + m_lifeRect.width * m_health + m_portraitOffset.x,2 + m_portraitOffset.y});
+            }
 
-                m_hudTexture->Draw(m_coinRectLeft, m_coinOffset);
-                m_hudTexture->Draw(m_coinRectMiddle, m_coinOffset + raylib::Vector2{TILE_UNIT * 2,0});
-                m_hudTexture->Draw(m_coinRectRight, m_coinOffset + raylib::Vector2{TILE_UNIT * 4,0});
-                m_hudTexture->Draw(m_coinRect, m_coinOffset + raylib::Vector2{TILE_UNIT * 1,4});
-                DrawText(TextFormat("%i", static_cast<int>(m_coins)), m_coinOffset.x + TILE_UNIT * 3, m_coinOffset.y + 5, 15, BLACK);
+            void drawBar(raylib::Vector2 offset, int middleParts)
+            {
+                m_hudTexture->Draw(m_barRectLeft, offset);
+                for (int i = 0; i < middleParts; ++i)
+                {
+                    m_hudTexture->Draw(m_barRectMiddle, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * i,0});
+                }
+
+                m_hudTexture->Draw(m_barRectRight, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * middleParts,0});
+            }
+
+            void drawCoinBar(raylib::Vector2 offset)
+            {
+                drawBar(offset, 1);
+                m_hudTexture->Draw(m_coinRect, offset + raylib::Vector2{TILE_UNIT * 1,4});
+                DrawText(TextFormat("%i", static_cast<int>(m_coins)), offset.x + TILE_UNIT * 3, offset.y + 5, 15, BLACK);
+            }
+
+            void drawPlayerPositionBar(raylib::Vector2 offset)
+            {
+                drawBar(offset, 5);
+                DrawText(TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y)), offset.x + TILE_UNIT * 1, offset.y + 5, 15, BLACK);
+            }
+
+            void draw() override
+            {
+                if (!m_isVisible) return;
+
+                drawPlayerPortrait();
+                drawCoinBar(m_coinOffset);
+                drawPlayerPositionBar(m_playerPositionOffset);
             }
 
         private:
@@ -102,9 +131,13 @@ namespace ggj
             int m_coins{};
             raylib::Vector2 m_coinOffset{};
             raylib::Rectangle m_coinRect {TILE_UNIT * 7, TILE_UNIT * 6, TILE_UNIT * 1, TILE_UNIT * 1};
-            raylib::Rectangle m_coinRectLeft {TILE_UNIT * 0, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
-            raylib::Rectangle m_coinRectMiddle {TILE_UNIT * 2, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
-            raylib::Rectangle m_coinRectRight {TILE_UNIT * 4, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+
+            raylib::Vector2 m_playerPosition{};
+            raylib::Vector2 m_playerPositionOffset{};
+
+            raylib::Rectangle m_barRectLeft {TILE_UNIT * 0, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+            raylib::Rectangle m_barRectMiddle {TILE_UNIT * 2, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+            raylib::Rectangle m_barRectRight {TILE_UNIT * 4, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
     };
 
 }

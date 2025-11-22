@@ -107,6 +107,8 @@ namespace ggj
 
         add(ggj::ResourceName::HudRpg, "graphics/hud/ui_big_pieces.png");
         add(ggj::ResourceName::HudRpgSubset, "graphics/hud/hudRpg_subset.png");
+        add(ggj::ResourceName::HudRpgRoguePortrait, "graphics/portraits/rogue_hud.png");
+        add(ggj::ResourceName::HudRpgWizardPortrait, "graphics/portraits/wizard_hud.png");
 
         add(ggj::ResourceName::FontDroidSans, "fonts/DroidSans.ttf");
         add(ggj::ResourceName::FontDroidSansBold, "fonts/DroidSansBold.ttf");

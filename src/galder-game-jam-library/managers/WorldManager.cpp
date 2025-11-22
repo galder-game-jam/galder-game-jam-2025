@@ -66,7 +66,7 @@ namespace ggj
                                 m_startupIndex = getStageIndexByFilename(file.filename().string());
                             }
                         }
-                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map), m_hud);
+                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map), m_hud, m_dialog);
                         m_worlds[stage]->initialize();
                         m_logger.debug(fmt::format("World added: {0}", file.filename().generic_string()));
                     }

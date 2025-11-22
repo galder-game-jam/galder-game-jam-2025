@@ -27,10 +27,10 @@ namespace ggj
                   ggj::ITextureManager<TextureName, raylib::Texture> &textures,
                   raylib::Window &window, ggj::IInputManager<ggj::KeyboardKey> &input, CollisionManager &collisionManager,
                   IDebugManager &debugManager, ggj::IAnimationManager<ggj::Animation, ggj::AnimationName> &animationManager,
-                  IUserDataManager<PhysicsObject*> &userDataManager, std::unique_ptr<tson::Map> map, ggj::Hud &hud)
+                  IUserDataManager<PhysicsObject*> &userDataManager, std::unique_ptr<tson::Map> map, ggj::Hud &hud, Dialog &dialog)
                     : m_logger{logger}, m_resources{resources}, m_mapper{mapper}, m_textures{textures}, m_window{window},
                     m_input {input}, m_collisionManager {collisionManager}, m_debugManager {debugManager},
-                    m_animationManager {animationManager}, m_userDataManager{userDataManager}, m_map{std::move(map)}, m_hud{hud}
+                    m_animationManager {animationManager}, m_userDataManager{userDataManager}, m_map{std::move(map)}, m_hud{hud}, m_dialog {dialog}
             {
                 m_camera.target = Vector2{ 0.f, 0.f };
                 m_camera.offset = {0.f, 0.f};//{8.f, 8.f};//(Vector2){ (float) window.GetWidth() / 2.0f, (float)window.GetHeight() / 2.0f };
@@ -90,6 +90,8 @@ namespace ggj
             Portal *m_portal = nullptr;
 
             Hud &m_hud;
+
+            Dialog &m_dialog;
 
             b2World m_world{{0.f, 0.f}};
             std::unique_ptr<tson::Map> m_map{nullptr};

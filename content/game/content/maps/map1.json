@@ -3189,7 +3189,7 @@
                         {
                          "name":"velocity_x",
                          "type":"float",
-                         "value":-1
+                         "value":-1.5
                         }],
                  "rotation":0,
                  "type":"PhysicsObject",

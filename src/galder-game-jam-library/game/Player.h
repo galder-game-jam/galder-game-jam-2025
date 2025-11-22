@@ -30,7 +30,9 @@ namespace ggj
                 
                 const raylib::Vector2 bodyPosition = ConvertToVector2(m_body->GetPosition());
                 auto hitBoxPos = raylib::Vector2(bodyPosition.x + 16, bodyPosition.y);
-                m_hitbox.create(this, m_body->GetWorld(), hitBoxPos, {32, 32});
+
+                const UserData hitboxData {ObjectType::PlayerHitbox, {0.f, 0.f}, "melee_attack", "melee_hitbox"};
+                m_hitbox.create(this, m_body->GetWorld(), hitBoxPos, {32, 32}, hitboxData);
                 setPlayerState(PlayerState::Idle);
             }
 

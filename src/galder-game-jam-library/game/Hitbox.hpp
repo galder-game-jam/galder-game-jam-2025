@@ -24,7 +24,8 @@ namespace ggj
             
             }
             
-            void create(PhysicsObject *owner, b2World *world, const raylib::Vector2 &position, const raylib::Vector2 &size, raylib::Color color = raylib::Color::Red())
+            void create(PhysicsObject *owner, b2World *world, const raylib::Vector2 &position, const raylib::Vector2 &size, const UserData &userdata,
+                raylib::Color color = raylib::Color{255, 0, 0, 128})
             {
                 m_isLeftPos = false;
                 m_owner = owner;
@@ -35,6 +36,7 @@ namespace ggj
                 m_color = color;
                 m_shape = ggj::PhysicsShape::Rectangle;
                 m_isVisible = false;
+                m_userData = userdata;
             }
             
             void beginContact(PhysicsObject *a, PhysicsObject *b, b2Contact *contact) override
@@ -71,7 +73,7 @@ namespace ggj
             
             b2Body *createBody(b2World *world, const raylib::Vector2 &position, const raylib::Vector2 &size)
             {
-                b2BodyType bodyType = b2_staticBody;
+                b2BodyType bodyType = b2_dynamicBody;
                 
                 b2BodyDef bodyDef;
                 bodyDef.type = bodyType;
@@ -81,11 +83,14 @@ namespace ggj
                 b2Vec2 b2pos = PhysicsObject::ConvertToB2Vec2({(float) position.x, (float) position.y});
                 
                 bodyDef.position.Set(b2pos.x + b2origin.x, b2pos.y + b2origin.y);
+                bodyDef.gravityScale = 0;
+                bodyDef.fixedRotation = true;
                 b2Body *body = world->CreateBody(&bodyDef);
                 
                 //Create rectangle
                 b2PolygonShape box;
                 box.SetAsBox(b2size.x / 2 - b2_polygonRadius, b2size.y / 2 - b2_polygonRadius);
+
                 b2FixtureDef fd;
                 fd.shape = &box;
                 fd.density = 1.0f; //Density must be something to react to gravity.

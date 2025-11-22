@@ -79,7 +79,7 @@ namespace ggj
                 drawPlayerPositionBar(m_playerPositionOffset);
                 drawKillsBar(m_killsOffset);
 
-                drawQuestLog(m_questLogOffset, 4,3);
+                drawQuestLog(m_questLogOffset, 3,1);
 
             }
 
@@ -91,7 +91,7 @@ namespace ggj
                 raylib::Vector2 shrinkflation = raylib::Vector2(4, 4);
 
                 raylib::Rectangle backdrop = raylib::Rectangle(offset + shrinkflation, raylib::Vector2((width+2) * grid, (height+2) * grid) - shrinkflation * 2);
-                DrawRectangle(backdrop.x, backdrop.y, backdrop.width, backdrop.height, raylib::Color(143, 86, 59, 200));
+                DrawRectangle(backdrop.x, backdrop.y, backdrop.width, backdrop.height, raylib::Color(143, 86, 59, 180));
 
                 raylib::Rectangle tiles[3][3] =
                 {
@@ -114,10 +114,15 @@ namespace ggj
                     }
                 }
 
-                // int enemies = m_currentWorld->getEnemies();
-                // int enemiesLeft = m_currentWorld->getNumberOfEnemiesLeft();
+                int enemies = 5;//m_currentWorld->getEnemies();
+                int enemiesLeft = 0;//m_currentWorld->getNumberOfEnemiesLeft();
 
-                DrawText(TextFormat("Quest - Kill enemies 0/250"), offset.x + TILE_UNIT * 3, offset.y + 5, FONT_SIZE, BLACK);
+                int enemiesKilled = enemies - enemiesLeft;
+                bool isOpen = enemiesKilled == enemies;
+
+                DrawText(TextFormat("Quest Log"), offset.x + TILE_UNIT, offset.y + 7, FONT_SIZE, YELLOW);
+                DrawText(TextFormat("Kill enemies %i/%i", enemiesKilled, enemies), offset.x + TILE_UNIT, offset.y + 27, FONT_SIZE, BLACK);
+                DrawText(TextFormat("Portal is %s", isOpen ? "open": "closed"), offset.x + TILE_UNIT, offset.y + 67, FONT_SIZE, isOpen? GREEN : RED);
             }
 
             void DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd, float barNo) const

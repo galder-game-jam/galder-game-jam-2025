@@ -3,6 +3,8 @@
 //
 
 #include "World.h"
+
+#include "../game/Hud.hpp"
 #include "../graphics/Sprite.h"
 
 namespace ggj
@@ -213,6 +215,8 @@ namespace ggj
             layer.second.update(timeDelta);
         }
 
+        m_hud.update(timeDelta);
+
         if (m_player != nullptr)
         {
             if(m_player->hasClearedLevel())
@@ -228,12 +232,10 @@ namespace ggj
 
             Colori color = {0, 50, 150, 255};
 
-            m_debugManager.setText(1, fmt::format("Player1 | coins: {0} | lives: {1} | kills: {2} | position: ({3},{4})", m_player->getScore(), m_player->getLives(), m_player->getUserData()->enemiesKilled, (int) m_player->getPosition().x, (int) m_player->getPosition().y), color);
-
             m_debugManager.setText(3, fmt::format("Enemies: {0} ({1} remaining) {2}", (int) m_numberOfEnemies, getNumberOfEnemiesLeft(), getNumberOfEnemiesLeft() == 0 ? "Portal open":"Portal closed"), color);
 #ifdef GAME_DEV_DEBUG
-            m_debugManager.setText(4, fmt::format("Current leader: {0}", getLeadingPlayer()), color);
-            m_debugManager.setText(5, fmt::format("CameraPos: ({0}, {1})", (int) m_camera.target.x, (int) m_camera.target.y), color);
+            //m_debugManager.setText(4, fmt::format("Current leader: {0}", getLeadingPlayer()), color);
+            //m_debugManager.setText(18, fmt::format("CameraPos: ({0}, {1})", (int) m_camera.target.x, (int) m_camera.target.y), color);
 #endif
 
         }
@@ -259,6 +261,7 @@ namespace ggj
             layer.second.draw();
         }
         m_camera.EndMode();
+        m_hud.draw();
     }
 
     void World::generatePhysicsObject(const std::string &name, b2Body *body, const ObjectGeneratorData &generatorData)
@@ -679,6 +682,11 @@ namespace ggj
         //if(m_player->getScore() < m_player2->getScore())
           //  return m_player2->getUserData()->getName();
         //return "both";
+    }
+
+    Player* World::getPlayer()
+    {
+        return m_player;
     }
 
     int World::getEnemies() const

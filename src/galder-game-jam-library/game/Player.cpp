@@ -117,6 +117,10 @@ namespace ggj
         {
             m_cameraShouldFollowPlayer = !m_cameraShouldFollowPlayer;
         }
+        if(m_inputManager.keyPressed(KeyboardKey::Minus))
+        {
+            ++m_lives;
+        }
         #endif
 
         //Toggle player rotate. Fun!

@@ -94,6 +94,9 @@ namespace ggj
         DungeonPrison = 204,
         DungeonPrisonProps = 205,
 
+        HudRpg = 300,
+        HudRpgSubset = 301,
+
         FontDroidSans = 400,
         FontDroidSansBold = 401,
         FontPixantiqua = 402

@@ -105,6 +105,9 @@ namespace ggj
         add(ggj::ResourceName::DungeonPrison, "graphics/tiles/dungeon_prison.png");
         add(ggj::ResourceName::DungeonPrisonProps, "graphics/tiles/dungeon_prison_props.png");
 
+        add(ggj::ResourceName::HudRpg, "graphics/hud/ui_big_pieces.png");
+        add(ggj::ResourceName::HudRpgSubset, "graphics/hud/hudRpg_subset.png");
+
         add(ggj::ResourceName::FontDroidSans, "fonts/DroidSans.ttf");
         add(ggj::ResourceName::FontDroidSansBold, "fonts/DroidSansBold.ttf");
         add(ggj::ResourceName::FontPixantiqua, "fonts/pixantiqua.ttf");

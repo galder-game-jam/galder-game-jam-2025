@@ -13,6 +13,9 @@ namespace ggj
         {
             m_logger.debug("FOUND project!");
             parseProject();
+            m_hud.initialize();
+            m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_hud.setWorld(m_worlds[m_currentStageIndex].get());
         }
 
         //Load custom font
@@ -62,7 +65,7 @@ namespace ggj
                                 m_startupIndex = getStageIndexByFilename(file.filename().string());
                             }
                         }
-                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map));
+                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map), m_hud);
                         m_worlds[stage]->initialize();
                         m_logger.debug(fmt::format("World added: {0}", file.filename().generic_string()));
                     }
@@ -95,6 +98,11 @@ namespace ggj
         if (m_input.keyPressed(ggj::KeyboardKey::F1)) m_currentStageIndex = 1;
         if (m_input.keyPressed(ggj::KeyboardKey::F2)) m_currentStageIndex = 2;
         if (m_input.keyPressed(ggj::KeyboardKey::F3)) m_currentStageIndex = FINAL_MAP_ID;
+        if (m_input.keyPressed(ggj::KeyboardKey::F1) || m_input.keyPressed(ggj::KeyboardKey::F2) || m_input.keyPressed(ggj::KeyboardKey::F3))
+        {
+            m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+        }
         #endif
 
         if (m_currentStageIndex == NO_MAP_ID)
@@ -105,6 +113,9 @@ namespace ggj
             m_worlds[m_currentStageIndex]->update(timeDelta);
             if(m_worlds[m_currentStageIndex]->isLevelCleared())
             {
+                m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
                 m_worlds[m_currentStageIndex]->setLevelCleared(false);
                 ++m_currentStageIndex;
                 if(m_worlds.count(m_currentStageIndex) == 0)

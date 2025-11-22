@@ -61,41 +61,6 @@ namespace ggj
                 m_playerPosition = raylib::Vector2 {m_currentPlayer->getPosition() };
             }
 
-            void drawPlayerPortrait()
-            {
-                m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
-
-                for (int i = 0; i < m_health; ++i)
-                {
-                    m_hudTexture->Draw(m_lifeRect, raylib::Vector2{m_portraitRect.width  + m_lifeRect.width * i + m_portraitOffset.x,6 + m_portraitOffset.y});
-                }
-                m_hudTexture->Draw(m_lifeEnd, raylib::Vector2{m_portraitRect.width + m_lifeRect.width * m_health + m_portraitOffset.x,2 + m_portraitOffset.y});
-            }
-
-            void drawBar(raylib::Vector2 offset, int middleParts)
-            {
-                m_hudTexture->Draw(m_barRectLeft, offset);
-                for (int i = 0; i < middleParts; ++i)
-                {
-                    m_hudTexture->Draw(m_barRectMiddle, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * i,0});
-                }
-
-                m_hudTexture->Draw(m_barRectRight, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * middleParts,0});
-            }
-
-            void drawCoinBar(raylib::Vector2 offset)
-            {
-                drawBar(offset, 1);
-                m_hudTexture->Draw(m_coinRect, offset + raylib::Vector2{TILE_UNIT * 1,4});
-                DrawText(TextFormat("%i", static_cast<int>(m_coins)), offset.x + TILE_UNIT * 3, offset.y + 5, 15, BLACK);
-            }
-
-            void drawPlayerPositionBar(raylib::Vector2 offset)
-            {
-                drawBar(offset, 5);
-                DrawText(TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y)), offset.x + TILE_UNIT * 1, offset.y + 5, 15, BLACK);
-            }
-
             void draw() override
             {
                 if (!m_isVisible) return;
@@ -106,6 +71,47 @@ namespace ggj
             }
 
         private:
+            void drawPlayerPortrait() const
+            {
+                m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
+
+                for (int i = 0; i < m_health; ++i)
+                {
+                    m_hudTexture->Draw(m_lifeRect, raylib::Vector2{m_portraitRect.width  + m_lifeRect.width * i + m_portraitOffset.x,6 + m_portraitOffset.y});
+                }
+                m_hudTexture->Draw(m_lifeEnd, raylib::Vector2{m_portraitRect.width + m_lifeRect.width * m_health + m_portraitOffset.x,2 + m_portraitOffset.y});
+            }
+
+            void drawBar(raylib::Vector2 offset, int middleParts) const
+            {
+                m_hudTexture->Draw(m_barRectLeft, offset);
+                for (int i = 0; i < middleParts; ++i)
+                {
+                    m_hudTexture->Draw(m_barRectMiddle, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * i,0});
+                }
+
+                m_hudTexture->Draw(m_barRectRight, offset + raylib::Vector2{TILE_UNIT * 2 + TILE_UNIT * 2 * middleParts,0});
+            }
+
+            void drawCoinBar(raylib::Vector2 offset) const
+            {
+                drawBar(offset, 1);
+                m_hudTexture->Draw(m_coinRect, offset + raylib::Vector2{TILE_UNIT * 1,4});
+                DrawText(TextFormat("%i", static_cast<int>(m_coins)), offset.x + TILE_UNIT * 3, offset.y + 5, FONT_SIZE, BLACK);
+            }
+
+            void drawPlayerPositionBar(raylib::Vector2 offset) const
+            {
+                drawBar(offset, 5);
+                raylib::Text text {};
+                text.text = TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y));
+                text.SetFontSize(FONT_SIZE);
+                text.color = HUD_FONT_COLOR;
+
+                //text.Draw(offset.x + TILE_UNIT * 1, offset.y + 5);
+
+                DrawText(TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y)), offset.x + TILE_UNIT * 1, offset.y + 5, FONT_SIZE, BLACK);
+            }
             IMapper &m_mapper;
             ITextureManager<TextureName, raylib::Texture> &m_textures;
             IInputManager<KeyboardKey> &m_inputManager;
@@ -121,6 +127,8 @@ namespace ggj
 
 
             const float TILE_UNIT = 16.0f;
+            const int FONT_SIZE = 15;
+            const raylib::Color HUD_FONT_COLOR = BLACK;
 
             float m_health{};
             raylib::Vector2 m_portraitOffset{};

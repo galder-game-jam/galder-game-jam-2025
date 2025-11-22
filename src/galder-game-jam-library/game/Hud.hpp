@@ -83,11 +83,12 @@ namespace ggj
         private:
             void DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd, float barNo) const
             {
+                float barTypeOffset = 20 * barNo;
                 for (int i = 0; i < counter; ++i)
                 {
-                    m_hudTexture->Draw(rectResource, raylib::Vector2{m_portraitRect.width  + rectResource.width * i + m_portraitOffset.x,6 + 20 * barNo + m_portraitOffset.y});
+                    m_hudTexture->Draw(rectResource, raylib::Vector2{m_portraitRect.width  + rectResource.width * i + m_portraitOffset.x,6 + barTypeOffset + m_portraitOffset.y});
                 }
-                m_hudTexture->Draw(rectEnd, raylib::Vector2{m_portraitRect.width + rectResource.width * counter + m_portraitOffset.x,2 + 20 * barNo + m_portraitOffset.y});
+                m_hudTexture->Draw(rectEnd, raylib::Vector2{m_portraitRect.width + rectResource.width * counter + m_portraitOffset.x,2 + barTypeOffset + m_portraitOffset.y});
             }
 
             void drawPlayerPortrait() const

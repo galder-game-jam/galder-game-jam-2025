@@ -58,49 +58,47 @@ namespace ggj
         //But this is just meant to be a quick example
         b2Vec2 vel = m_body->GetLinearVelocity();
         m_velocity = raylib::Vector2{vel.x, vel.y};
-        
-        bool isInAir = m_velocity.y > 0.2f || m_velocity.y < -0.2f;
 
-        if(!m_isAttacking || isInAir)
+        if(m_inputManager.keyDown(KeyboardKey::A) && !m_inputManager.keyDown(KeyboardKey::D))
         {
-            if(m_inputManager.keyDown(KeyboardKey::A) && !m_inputManager.keyDown(KeyboardKey::D))
-            {
-                m_isLeftPosition = true;
-                m_hitbox.setLeftPosition(true);
-                m_flip = true;
-                m_velocity = raylib::Vector2{-7.f, m_velocity.y};
-                if(m_velocity.y < 0.2f && m_velocity.y > -0.2f)
-                    setPlayerState(PlayerState::Walk);
-            }
-            else if(m_inputManager.keyDown(KeyboardKey::D) && !m_inputManager.keyDown(KeyboardKey::A))
-            {
-                m_isLeftPosition = false;
-                m_hitbox.setLeftPosition(false);
-                m_flip = false;
-                m_velocity = raylib::Vector2{7.f, m_velocity.y};
-                if(m_velocity.y < 0.2f && m_velocity.y > -0.2f)
-                    setPlayerState(PlayerState::Walk);
-            }
-            else
-            {
-                m_velocity = raylib::Vector2{0.f, m_velocity.y};
-            }
-
-            if(m_inputManager.keyDown(KeyboardKey::W) && !m_inputManager.keyDown(KeyboardKey::S))
-            {
-                m_velocity = raylib::Vector2{m_velocity.x, -7.f};
+            m_isLeftPosition = true;
+            m_hitbox.setLeftPosition(true);
+            m_flip = true;
+            m_velocity = raylib::Vector2{-7.f, m_velocity.y};
+            if(m_velocity.y < 0.2f && m_velocity.y > -0.2f && !m_isAttacking)
                 setPlayerState(PlayerState::Walk);
-            }
-            else if(m_inputManager.keyDown(KeyboardKey::S) && !m_inputManager.keyDown(KeyboardKey::W))
-            {
-                m_velocity = raylib::Vector2{m_velocity.x, 7.f};
-                setPlayerState(PlayerState::Walk);
-            }
-            else
-            {
-                m_velocity = raylib::Vector2{m_velocity.x, 0.f};
-            }
         }
+        else if(m_inputManager.keyDown(KeyboardKey::D) && !m_inputManager.keyDown(KeyboardKey::A))
+        {
+            m_isLeftPosition = false;
+            m_hitbox.setLeftPosition(false);
+            m_flip = false;
+            m_velocity = raylib::Vector2{7.f, m_velocity.y};
+            if(m_velocity.y < 0.2f && m_velocity.y > -0.2f && !m_isAttacking)
+                setPlayerState(PlayerState::Walk);
+        }
+        else
+        {
+            m_velocity = raylib::Vector2{0.f, m_velocity.y};
+        }
+
+        if(m_inputManager.keyDown(KeyboardKey::W) && !m_inputManager.keyDown(KeyboardKey::S))
+        {
+            m_velocity = raylib::Vector2{m_velocity.x, -7.f};
+            if (!m_isAttacking)
+                setPlayerState(PlayerState::Walk);
+        }
+        else if(m_inputManager.keyDown(KeyboardKey::S) && !m_inputManager.keyDown(KeyboardKey::W))
+        {
+            m_velocity = raylib::Vector2{m_velocity.x, 7.f};
+            if (!m_isAttacking)
+                setPlayerState(PlayerState::Walk);
+        }
+        else
+        {
+            m_velocity = raylib::Vector2{m_velocity.x, 0.f};
+        }
+
         
         if(m_inputManager.keyPressed(KeyboardKey::C) && !m_isAttacking)
         {

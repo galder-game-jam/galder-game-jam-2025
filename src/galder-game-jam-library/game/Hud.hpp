@@ -34,6 +34,11 @@ namespace ggj
                 m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
             }
 
+            void setFont(raylib::Font *font)
+            {
+                m_font = font;
+            }
+
             void setPlayer(Player *player)
             {
                 m_currentPlayer = player;
@@ -120,9 +125,9 @@ namespace ggj
                 int enemiesKilled = enemies - enemiesLeft;
                 bool isOpen = enemiesKilled == enemies;
 
-                DrawText(TextFormat("Quest Log"), offset.x + TILE_UNIT, offset.y + 7, FONT_SIZE, YELLOW);
-                DrawText(TextFormat("Kill enemies %i/%i", enemiesKilled, enemies), offset.x + TILE_UNIT, offset.y + 27, FONT_SIZE, BLACK);
-                DrawText(TextFormat("Portal is %s", isOpen ? "open": "closed"), offset.x + TILE_UNIT, offset.y + 67, FONT_SIZE, isOpen? GREEN : RED);
+                m_font->DrawText(TextFormat("Quest Log"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0, YELLOW);
+                m_font->DrawText(TextFormat("Kill enemies %i/%i", enemiesKilled, enemies), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
+                m_font->DrawText(TextFormat("Portal is %s", isOpen ? "open": "closed"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, isOpen? GREEN : RED);
             }
 
             void DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd, float barNo) const
@@ -159,31 +164,27 @@ namespace ggj
             {
                 drawBar(offset, 1);
                 m_hudTexture->Draw(m_coinRect, offset + raylib::Vector2{TILE_UNIT * 1,4});
-                DrawText(TextFormat("%i", static_cast<int>(m_coins)), offset.x + TILE_UNIT * 3, offset.y + 5, FONT_SIZE, BLACK);
+
+                m_font->DrawText(TextFormat("%i", static_cast<int>(m_coins)), raylib::Vector2{offset.x + TILE_UNIT * 3, offset.y + 5}, FONT_SIZE, 0, BLACK);
             }
 
             void drawKillsBar(raylib::Vector2 offset) const
             {
                 drawBar(offset, 1);
-                DrawText(TextFormat("Kills: %i", static_cast<int>(m_kills)), offset.x + TILE_UNIT * 1, offset.y + 5, FONT_SIZE, BLACK);
+                m_font->DrawText(TextFormat("Kills: %i", static_cast<int>(m_kills)), raylib::Vector2{offset.x + TILE_UNIT * 1, offset.y + 5}, FONT_SIZE, 0, BLACK);
             }
 
             void drawPlayerPositionBar(raylib::Vector2 offset) const
             {
                 drawBar(offset, 5);
-                raylib::Text text {};
-                text.text = TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y));
-                text.SetFontSize(FONT_SIZE);
-                text.color = HUD_FONT_COLOR;
-
-                //text.Draw(offset.x + TILE_UNIT * 1, offset.y + 5);
-
-                DrawText(TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y)), offset.x + TILE_UNIT * 1, offset.y + 5, FONT_SIZE, BLACK);
+                m_font->DrawText(TextFormat("Player position: (%i, %i)", static_cast<int>(m_playerPosition.x), static_cast<int>(m_playerPosition.y)), raylib::Vector2{offset.x + TILE_UNIT * 1, offset.y + 5}, FONT_SIZE, 0, BLACK);
             }
             IMapper &m_mapper;
             ITextureManager<TextureName, raylib::Texture> &m_textures;
             IInputManager<KeyboardKey> &m_inputManager;
             raylib::Texture *m_hudTexture;
+
+            raylib::Font *m_font = nullptr;
 
             Player *m_currentPlayer = nullptr;
             World *m_currentWorld = nullptr;

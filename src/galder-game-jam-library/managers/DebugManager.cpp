@@ -27,13 +27,13 @@ namespace ggj
 
         for(auto & debugText : m_debugTexts)
         {
-            std::string text = debugText.second.first;
-            ggj::Colori c = debugText.second.second;
+            std::string &text = debugText.second.first;
+            ggj::Colori &c = debugText.second.second;
             raylib::Color color = {c.r, c.g, c.b, c.a};
 
             if(m_font != nullptr)
             {
-                DrawTextEx(*m_font, text, (int)textPos.x, (int)textPos.y, m_fontSize, color);
+                m_font->DrawText(text, raylib::Vector2{textPos.x, textPos.y}, (float)m_fontSize, 0, color);
             }
             else
                 DrawText(text, (int)textPos.x, (int)textPos.y, m_fontSize, color);
@@ -47,7 +47,7 @@ namespace ggj
         m_debugTexts.clear();
     }
     
-    void DebugManager::setFont(Font *font)
+    void DebugManager::setFont(raylib::Font* font)
     {
         m_font = font;
     }

@@ -93,6 +93,10 @@ namespace ggj
         MageBall = 203,
         DungeonPrison = 204,
         DungeonPrisonProps = 205,
+
+        FontDroidSans = 400,
+        FontDroidSansBold = 401,
+        FontPixantiqua = 402
     };
 }
 

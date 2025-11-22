@@ -81,6 +81,7 @@ namespace ggj
         DungeonPrisonProps = 205,
 
         HudRpg = 300,
+        HudRpgSubset = 301,
     };
 }
 #endif //GAME_DEV_TEMPLATE_TEXTURENAME_H

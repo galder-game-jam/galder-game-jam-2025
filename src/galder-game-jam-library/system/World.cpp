@@ -237,7 +237,7 @@ namespace ggj
             m_debugManager.setText(3, fmt::format("Enemies: {0} ({1} remaining) {2}", (int) m_numberOfEnemies, getNumberOfEnemiesLeft(), getNumberOfEnemiesLeft() == 0 ? "Portal open":"Portal closed"), color);
 #ifdef GAME_DEV_DEBUG
             m_debugManager.setText(4, fmt::format("Current leader: {0}", getLeadingPlayer()), color);
-            m_debugManager.setText(5, fmt::format("CameraPos: ({0}, {1})", (int) m_camera.target.x, (int) m_camera.target.y), color);
+            m_debugManager.setText(18, fmt::format("CameraPos: ({0}, {1})", (int) m_camera.target.x, (int) m_camera.target.y), color);
 #endif
 
         }

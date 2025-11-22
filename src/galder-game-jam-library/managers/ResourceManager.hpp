@@ -106,6 +106,7 @@ namespace ggj
         add(ggj::ResourceName::DungeonPrisonProps, "graphics/tiles/dungeon_prison_props.png");
 
         add(ggj::ResourceName::HudRpg, "graphics/hud/ui_big_pieces.png");
+        add(ggj::ResourceName::HudRpgSubset, "graphics/hud/hudRpg_subset.png");
     }
 
     template<class T>

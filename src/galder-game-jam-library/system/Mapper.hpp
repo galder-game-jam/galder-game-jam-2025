@@ -157,6 +157,7 @@ namespace ggj
                 m_texToRes[TextureName::DungeonPrisonProps] = ResourceName::DungeonPrisonProps;
 
                 m_texToRes[TextureName::HudRpg] = ResourceName::HudRpg;
+                m_texToRes[TextureName::HudRpgSubset] = ResourceName::HudRpgSubset;
             };
 
             TextureName getTextureNameByString(const std::string &id) override

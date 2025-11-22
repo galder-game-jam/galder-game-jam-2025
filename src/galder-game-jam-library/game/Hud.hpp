@@ -24,8 +24,11 @@ namespace ggj
                 m_color = raylib::Color::White();
                 m_size = raylib::Vector2{200, 20};
                 m_origin = raylib::Vector2{20, 20};
+                m_position = raylib::Vector2{ 5, 0 };
 
-                m_hudTexture = m_textures.get(TextureName::HudRpg);
+                m_portraitOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 50 };
+                m_coinOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 120 };
+                m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
             }
 
             void setPlayer(Player *player)
@@ -51,31 +54,26 @@ namespace ggj
                     setVisible(!m_isVisible);
                 }
 
-                m_health = GetRandomValue(1, 5);
+                m_health = static_cast<float>(m_currentPlayer->getLives());
+                m_coins = m_currentPlayer->getScore();
             }
             void draw() override
             {
                 if (!m_isVisible) return;
 
-                raylib::Vector2 offset { 20, 50 };
+                m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
 
-                raylib::Rectangle rect = {448.f, 180.f, 83, 63};
-                m_hudTexture->Draw(rect, raylib::Vector2{0 + offset.x,0 + offset.y});
-
-                auto numberOfLives = m_currentPlayer->getLives();
-
-                int lifeSize = 9;
-                for (int i = 0; i < numberOfLives; ++i)
+                for (int i = 0; i < m_health; ++i)
                 {
-                    raylib::Rectangle rect2 = {592.f, 186.f, 9, 12};
-                    m_hudTexture->Draw(rect2, raylib::Vector2{83 + 1 + lifeSize * i + offset.x,6 + offset.y});
+                    m_hudTexture->Draw(m_lifeRect, raylib::Vector2{m_portraitRect.width  + m_lifeRect.width * i + m_portraitOffset.x,6 + m_portraitOffset.y});
                 }
+                m_hudTexture->Draw(m_lifeEnd, raylib::Vector2{m_portraitRect.width + m_lifeRect.width * m_health + m_portraitOffset.x,2 + m_portraitOffset.y});
 
-                raylib::Rectangle rect3 = {551.f, 182.f, 31, 19};
-                m_hudTexture->Draw(rect3, raylib::Vector2{83 + 1 + lifeSize * numberOfLives + offset.x,2 + offset.y});
-
-                DrawRectangle(100, 515, 400, 40, WHITE);
-                DrawText(TextFormat("Se på meg nå! Du har %i i liv", m_health), 110, 525, 20, RED);
+                m_hudTexture->Draw(m_coinRectLeft, m_coinOffset);
+                m_hudTexture->Draw(m_coinRectMiddle, m_coinOffset + raylib::Vector2{TILE_UNIT * 2,0});
+                m_hudTexture->Draw(m_coinRectRight, m_coinOffset + raylib::Vector2{TILE_UNIT * 4,0});
+                m_hudTexture->Draw(m_coinRect, m_coinOffset + raylib::Vector2{TILE_UNIT * 1,4});
+                DrawText(TextFormat("%i", static_cast<int>(m_coins)), m_coinOffset.x + TILE_UNIT * 3, m_coinOffset.y + 5, 15, BLACK);
             }
 
         private:
@@ -92,7 +90,21 @@ namespace ggj
             UserData m_userData {};
             raylib::Vector2 m_velocity {};
 
-            int m_health = 0;
+
+            const float TILE_UNIT = 16.0f;
+
+            float m_health{};
+            raylib::Vector2 m_portraitOffset{};
+            raylib::Rectangle m_portraitRect {TILE_UNIT * 0, TILE_UNIT * 0, TILE_UNIT * 5 + 4, TILE_UNIT * 4};
+            raylib::Rectangle m_lifeRect = {TILE_UNIT * 9, TILE_UNIT * 0, 8, 16};
+            raylib::Rectangle m_lifeEnd = {TILE_UNIT * 6, TILE_UNIT * 0, TILE_UNIT * 2, TILE_UNIT * 2};
+
+            int m_coins{};
+            raylib::Vector2 m_coinOffset{};
+            raylib::Rectangle m_coinRect {TILE_UNIT * 7, TILE_UNIT * 6, TILE_UNIT * 1, TILE_UNIT * 1};
+            raylib::Rectangle m_coinRectLeft {TILE_UNIT * 0, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+            raylib::Rectangle m_coinRectMiddle {TILE_UNIT * 2, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+            raylib::Rectangle m_coinRectRight {TILE_UNIT * 4, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
     };
 
 }

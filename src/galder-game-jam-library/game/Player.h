@@ -64,7 +64,7 @@ namespace ggj
             
             ggj::Hitbox m_hitbox{};
             bool m_isAttacking {false};
-            uint16_t m_attackFrames {30}; //How many frames an attack takes
+            uint16_t m_attackFrames {28}; //How many frames an attack takes
             uint16_t m_attackCounter {0}; //Counts attack duration
 
             int m_score{};

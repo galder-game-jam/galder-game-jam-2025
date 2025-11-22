@@ -216,6 +216,7 @@ namespace ggj
         }
 
         m_hud.update(timeDelta);
+        m_dialog.update(timeDelta);
 
         if (m_player != nullptr)
         {
@@ -262,6 +263,7 @@ namespace ggj
         }
         m_camera.EndMode();
         m_hud.draw();
+        m_dialog.draw();
     }
 
     void World::generatePhysicsObject(const std::string &name, b2Body *body, const ObjectGeneratorData &generatorData)

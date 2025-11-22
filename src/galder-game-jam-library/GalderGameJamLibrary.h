@@ -40,9 +40,6 @@
 //Hud
 #include "game/Hud.hpp"
 
-//Dialog
-#include "game/Dialog.h"
-
 //Managers
 #include "managers/AnimationManager.h"
 #include "managers/CollisionManager.h"
@@ -54,6 +51,9 @@
 #include "managers/TextureManager.h"
 #include "managers/UserDataManager.hpp"
 #include "managers/ManagerDiCollection.hpp"
+
+//Dialog
+#include "game/Dialog.h"
 
 #include "managers/WorldManager.h"
 

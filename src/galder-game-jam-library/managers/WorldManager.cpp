@@ -16,6 +16,10 @@ namespace ggj
             m_hud.initialize();
             m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+            m_dialog.initialize();
+            m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
         }
 
         //Load custom font
@@ -25,6 +29,7 @@ namespace ggj
         m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
         m_debugManager.setFont(&m_font);
         m_hud.setFont(&m_font);
+        m_dialog.setFont(&m_font);
 
         return projectExists;
     }
@@ -103,6 +108,9 @@ namespace ggj
         {
             m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+            m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
         }
         #endif
 
@@ -116,6 +124,9 @@ namespace ggj
             {
                 m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+                m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
 
                 m_worlds[m_currentStageIndex]->setLevelCleared(false);
                 ++m_currentStageIndex;

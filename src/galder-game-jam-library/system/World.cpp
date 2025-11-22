@@ -232,8 +232,6 @@ namespace ggj
 
             Colori color = {0, 50, 150, 255};
 
-            m_debugManager.setText(1, fmt::format("Player1 kills: {0}", m_player->getUserData()->enemiesKilled), color);
-
             m_debugManager.setText(3, fmt::format("Enemies: {0} ({1} remaining) {2}", (int) m_numberOfEnemies, getNumberOfEnemiesLeft(), getNumberOfEnemiesLeft() == 0 ? "Portal open":"Portal closed"), color);
 #ifdef GAME_DEV_DEBUG
             //m_debugManager.setText(4, fmt::format("Current leader: {0}", getLeadingPlayer()), color);

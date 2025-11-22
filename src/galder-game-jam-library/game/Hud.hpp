@@ -28,6 +28,7 @@ namespace ggj
 
                 m_portraitOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 50 };
                 m_coinOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 120 };
+                m_killsOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 152 };
                 m_playerPositionOffset = raylib::Vector2{ m_position.x + 570, m_position.y + 570 };
 
                 m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
@@ -36,6 +37,11 @@ namespace ggj
             void setPlayer(Player *player)
             {
                 m_currentPlayer = player;
+            }
+
+            void setWorld(World *world)
+            {
+                m_currentWorld = world;
             }
             void setVisible(bool isVisible)
             {
@@ -57,7 +63,10 @@ namespace ggj
                 }
 
                 m_health = static_cast<float>(m_currentPlayer->getLives());
+                m_mana = 2; // Implement mana and then: static_cast<float>(m_currentPlayer->getMana());
+                m_energy = 3; // Implement energy and then: static_cast<float>(m_currentPlayer->getEnergy());
                 m_coins = m_currentPlayer->getScore();
+                m_kills = m_currentPlayer->getUserData()->enemiesKilled;
                 m_playerPosition = raylib::Vector2 {m_currentPlayer->getPosition() };
             }
 
@@ -68,18 +77,26 @@ namespace ggj
                 drawPlayerPortrait();
                 drawCoinBar(m_coinOffset);
                 drawPlayerPositionBar(m_playerPositionOffset);
+                drawKillsBar(m_killsOffset);
             }
 
         private:
+            void DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd, float barNo) const
+            {
+                for (int i = 0; i < counter; ++i)
+                {
+                    m_hudTexture->Draw(rectResource, raylib::Vector2{m_portraitRect.width  + rectResource.width * i + m_portraitOffset.x,6 + 20 * barNo + m_portraitOffset.y});
+                }
+                m_hudTexture->Draw(rectEnd, raylib::Vector2{m_portraitRect.width + rectResource.width * counter + m_portraitOffset.x,2 + 20 * barNo + m_portraitOffset.y});
+            }
+
             void drawPlayerPortrait() const
             {
                 m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
 
-                for (int i = 0; i < m_health; ++i)
-                {
-                    m_hudTexture->Draw(m_lifeRect, raylib::Vector2{m_portraitRect.width  + m_lifeRect.width * i + m_portraitOffset.x,6 + m_portraitOffset.y});
-                }
-                m_hudTexture->Draw(m_lifeEnd, raylib::Vector2{m_portraitRect.width + m_lifeRect.width * m_health + m_portraitOffset.x,2 + m_portraitOffset.y});
+                DrawResourceBar(m_health, m_lifeRect, m_lifeEnd, 0);
+                DrawResourceBar(m_mana, m_manaRect, m_manaEnd, 1);
+                DrawResourceBar(m_energy, m_energyRect, m_energyEnd, 2);
             }
 
             void drawBar(raylib::Vector2 offset, int middleParts) const
@@ -100,6 +117,12 @@ namespace ggj
                 DrawText(TextFormat("%i", static_cast<int>(m_coins)), offset.x + TILE_UNIT * 3, offset.y + 5, FONT_SIZE, BLACK);
             }
 
+            void drawKillsBar(raylib::Vector2 offset) const
+            {
+                drawBar(offset, 1);
+                DrawText(TextFormat("Kills: %i", static_cast<int>(m_kills)), offset.x + TILE_UNIT * 1, offset.y + 5, FONT_SIZE, BLACK);
+            }
+
             void drawPlayerPositionBar(raylib::Vector2 offset) const
             {
                 drawBar(offset, 5);
@@ -118,6 +141,7 @@ namespace ggj
             raylib::Texture *m_hudTexture;
 
             Player *m_currentPlayer = nullptr;
+            World *m_currentWorld = nullptr;
 
             raylib::Vector2 m_size {};
             raylib::Vector2 m_origin {};
@@ -131,14 +155,27 @@ namespace ggj
             const raylib::Color HUD_FONT_COLOR = BLACK;
 
             float m_health{};
+            float m_mana{};
+            float m_energy{};
+
             raylib::Vector2 m_portraitOffset{};
+
             raylib::Rectangle m_portraitRect {TILE_UNIT * 0, TILE_UNIT * 0, TILE_UNIT * 5 + 4, TILE_UNIT * 4};
+
             raylib::Rectangle m_lifeRect = {TILE_UNIT * 9, TILE_UNIT * 0, 8, 16};
+            raylib::Rectangle m_manaRect = {TILE_UNIT * 9, TILE_UNIT * 1, 8, 16};
+            raylib::Rectangle m_energyRect = {TILE_UNIT * 9, TILE_UNIT * 2, 8, 16};
+
             raylib::Rectangle m_lifeEnd = {TILE_UNIT * 6, TILE_UNIT * 0, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_manaEnd = {TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_energyEnd = {TILE_UNIT * 6, TILE_UNIT * 4, TILE_UNIT * 2, TILE_UNIT * 2};
 
             int m_coins{};
             raylib::Vector2 m_coinOffset{};
             raylib::Rectangle m_coinRect {TILE_UNIT * 7, TILE_UNIT * 6, TILE_UNIT * 1, TILE_UNIT * 1};
+
+            int m_kills {};
+            raylib::Vector2 m_killsOffset{};
 
             raylib::Vector2 m_playerPosition{};
             raylib::Vector2 m_playerPositionOffset{};

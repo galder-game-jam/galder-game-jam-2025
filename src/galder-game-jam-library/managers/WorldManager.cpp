@@ -15,6 +15,7 @@ namespace ggj
             parseProject();
             m_hud.initialize();
             m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_hud.setWorld(m_worlds[m_currentStageIndex].get());
         }
 
         return projectExists;
@@ -90,6 +91,11 @@ namespace ggj
         if (m_input.keyPressed(ggj::KeyboardKey::F1)) m_currentStageIndex = 1;
         if (m_input.keyPressed(ggj::KeyboardKey::F2)) m_currentStageIndex = 2;
         if (m_input.keyPressed(ggj::KeyboardKey::F3)) m_currentStageIndex = FINAL_MAP_ID;
+        if (m_input.keyPressed(ggj::KeyboardKey::F1) || m_input.keyPressed(ggj::KeyboardKey::F2) || m_input.keyPressed(ggj::KeyboardKey::F3))
+        {
+            m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+        }
         #endif
 
         if (m_currentStageIndex == NO_MAP_ID)
@@ -101,6 +107,8 @@ namespace ggj
             if(m_worlds[m_currentStageIndex]->isLevelCleared())
             {
                 m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
                 m_worlds[m_currentStageIndex]->setLevelCleared(false);
                 ++m_currentStageIndex;
                 if(m_worlds.count(m_currentStageIndex) == 0)

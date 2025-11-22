@@ -126,14 +126,14 @@ namespace ggj
                 m_worlds[m_currentStageIndex]->setLevelCleared(false);
                 ++m_currentStageIndex;
 
+                if(m_worlds.count(m_currentStageIndex) == 0)
+                    m_currentStageIndex = FINAL_MAP_ID;
+
                 m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_hud.setWorld(m_worlds[m_currentStageIndex].get());
 
                 m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
-
-                if(m_worlds.count(m_currentStageIndex) == 0)
-                    m_currentStageIndex = FINAL_MAP_ID;
             }
         }
     }

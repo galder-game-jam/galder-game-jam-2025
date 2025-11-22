@@ -95,20 +95,39 @@ void ggj::Dialog::drawDialogBox(raylib::Vector2 offset, int width, int height) c
         }
     }
 
-    std::string name = "Galder";//m_currentWorld->getName();
-    int enemies = 5;//m_currentWorld->getEnemies();
-    int enemiesLeft = 0;//m_currentWorld->getNumberOfEnemiesLeft();
+    std::string name = "Galder";//m_currentPlayer->getName();
+    int enemies = m_currentWorld->getEnemies();
+    int enemiesLeft = m_currentWorld->getNumberOfEnemiesLeft();
 
     int enemiesKilled = enemies - enemiesLeft;
     bool isOpen = enemiesKilled == enemies;
 
-    m_font->DrawText(TextFormat("Hello %s!", name.c_str()), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0, YELLOW);
-    m_font->DrawText(TextFormat("Welcome to the world of Galdaria."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
-    m_font->DrawText(TextFormat("Your first task is to purge these lands of every creature in these woods!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 47}, FONT_SIZE, 0, BLACK);
-    m_font->DrawText(TextFormat("I am a bit too old to run around and kill, but I have scouted out the area for you."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, BLACK);
-    m_font->DrawText(TextFormat("Currently, %i creatures are running around. Happy little bastards...", enemies), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 87}, FONT_SIZE, 0, BLACK);
-    m_font->DrawText(TextFormat("Kill them for me, and I will grant you access to my torture chamber!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 107}, FONT_SIZE, 0, BLACK);
-    m_font->DrawText(TextFormat("When the deed is done, you will find a portal in a cave to the north."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 127}, FONT_SIZE, 0, BLACK);
+    if (enemiesKilled == 0)
+    {
+        m_font->DrawText(TextFormat("Hello %s!", name.c_str()), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0, YELLOW);
+        m_font->DrawText(TextFormat("Welcome to the world of Galdaria."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Your first task is to purge these lands of every creature in these woods!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 47}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("I am a bit too old to run around and kill, but I have scouted out the area for you."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Currently, %i creatures are running around. Happy little bastards...", enemiesLeft), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 87}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Kill them for me, and I will grant you access to my torture chamber!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 107}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("When the deed is done, you will find a portal in a cave to the north."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 127}, FONT_SIZE, 0, BLACK);
+    }
+    else if (!isOpen)
+    {
+        m_font->DrawText(TextFormat("Hello again %s!", name.c_str()), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0, YELLOW);
+        m_font->DrawText(TextFormat("How is the hunt going?"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Your clothes are drenched in blood I see... Good!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 47}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("But you are node quite done yet, %i fuckers to go.", enemiesLeft), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Don't come back until their souls have been purged."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 87}, FONT_SIZE, 0, BLACK);
+    }
+    else
+    {
+        m_font->DrawText(TextFormat("My god %s!", name.c_str()), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0, YELLOW);
+        m_font->DrawText(TextFormat("You did it!! Thank you for getting rid of all these happy bastards for me!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("As promised, you may now enter the portal so I can make you my sex sl... "), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 47}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("I mean..."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Collect your reward! Come, come my good friend!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 87}, FONT_SIZE, 0, BLACK);
+    }
 }
 
 void ggj::Dialog::handleInputs(float timeDelta)

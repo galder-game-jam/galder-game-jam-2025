@@ -32,10 +32,11 @@ namespace ggj
             void update(float timeDelta) override;
             void draw() override;
         private:
+        void drawDialogBox(raylib::Vector2 offset, int width, int height) const;
         IMapper &m_mapper;
         ITextureManager<TextureName, raylib::Texture> &m_textures;
         IInputManager<KeyboardKey> &m_inputManager;
-        raylib::Texture *m_hudTexture;
+        raylib::Texture *m_dialogTexture;
 
         raylib::Font *m_font = nullptr;
 
@@ -52,6 +53,18 @@ namespace ggj
         const int FONT_SIZE = 15;
         const raylib::Color HUD_FONT_COLOR = BLACK;
         const int HUD_ALPHA = 180;
+
+        raylib::Vector2 m_dialogOffset{};
+        raylib::Rectangle m_boxTopLeftRect {TILE_UNIT * 0, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxTopMiddleRect {TILE_UNIT * 2, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxTopRightRect {TILE_UNIT * 4, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxMiddleLeftRect {TILE_UNIT * 0, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxMiddleMiddleRect {TILE_UNIT * 2, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxMiddleRightRect {TILE_UNIT * 4, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxBottomLeftRect {TILE_UNIT * 0, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxBottomMiddleRect {TILE_UNIT * 2, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
+        raylib::Rectangle m_boxBottomRightRect {TILE_UNIT * 4, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
+
     };
 }
 

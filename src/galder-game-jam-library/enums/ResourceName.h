@@ -96,6 +96,8 @@ namespace ggj
 
         HudRpg = 300,
         HudRpgSubset = 301,
+        HudRpgRoguePortrait = 302,
+        HudRpgWizardPortrait = 303,
 
         FontDroidSans = 400,
         FontDroidSansBold = 401,

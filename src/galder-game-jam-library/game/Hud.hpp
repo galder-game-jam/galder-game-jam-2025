@@ -13,7 +13,8 @@ namespace ggj
     class Hud : public IGameObject<raylib::Vector2>
     {
         public:
-            Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures, IInputManager<KeyboardKey> &inputManager) : m_mapper {mapper}, m_textures {textures}, m_inputManager {inputManager}
+            Hud(IMapper &mapper, ggj::ITextureManager<TextureName, raylib::Texture> &textures,
+                IInputManager<KeyboardKey> &inputManager) : m_mapper {mapper}, m_textures {textures}, m_inputManager {inputManager}
             {
                 m_isVisible = true;
             }
@@ -30,8 +31,11 @@ namespace ggj
                 m_killsOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 152 };
                 m_playerPositionOffset = raylib::Vector2{ m_position.x + 570, m_position.y + 570 };
                 m_questLogOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 400 };
+                m_playerPortraitOffset = raylib::Vector2{ m_portraitOffset.x + 3, m_portraitOffset.y + 3 };
+
 
                 m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
+                m_playerPortraitTexture = m_textures.get(TextureName::HudRpgRoguePortrait);
             }
 
             void setFont(raylib::Font *font)
@@ -142,6 +146,7 @@ namespace ggj
 
             void drawPlayerPortrait() const
             {
+                m_playerPortraitTexture->Draw(m_playerPortraitOffset);
                 m_hudTexture->Draw(m_portraitRect, m_portraitOffset);
 
                 DrawResourceBar(m_health, m_lifeRect, m_lifeEnd, 0);
@@ -183,6 +188,7 @@ namespace ggj
             ITextureManager<TextureName, raylib::Texture> &m_textures;
             IInputManager<KeyboardKey> &m_inputManager;
             raylib::Texture *m_hudTexture;
+            raylib::Texture *m_playerPortraitTexture;
 
             raylib::Font *m_font = nullptr;
 
@@ -205,8 +211,8 @@ namespace ggj
             float m_mana{};
             float m_energy{};
 
+            raylib::Vector2 m_playerPortraitOffset{};
             raylib::Vector2 m_portraitOffset{};
-
             raylib::Rectangle m_portraitRect {TILE_UNIT * 0, TILE_UNIT * 0, TILE_UNIT * 5 + 4, TILE_UNIT * 4};
 
             raylib::Rectangle m_lifeRect = {TILE_UNIT * 9, TILE_UNIT * 0, 8, 16};

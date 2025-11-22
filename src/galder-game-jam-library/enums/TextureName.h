@@ -82,6 +82,8 @@ namespace ggj
 
         HudRpg = 300,
         HudRpgSubset = 301,
+        HudRpgRoguePortrait = 302,
+        HudRpgWizardPortrait = 303,
     };
 }
 #endif //GAME_DEV_TEMPLATE_TEXTURENAME_H

@@ -97,6 +97,7 @@ namespace ggj
                         float userDataForceY = c->get<float>("userdata_force_y");
                         int userdataObjectType = c->get<int>("userdata_objecttype");
                         std::string userdataCommand = c->get<std::string>("userdata_command");
+                        std::string userdataDialogId = c->get<std::string>("userdata_dialog_id");
 
                         //RBP: Note to self: Improve Tileson so this was handled automatically in the TiledClass.
                         for (auto &[key, value]: obj.getProperties().getProperties())
@@ -127,6 +128,8 @@ namespace ggj
                                 userdataObjectType = value.getValue<int>();
                             else if (key == "userdata_command")
                                 userdataCommand = value.getValue<std::string>();
+                            else if (key == "userdata_dialog_id")
+                                userdataDialogId = value.getValue<std::string>();
                         }
 
                         ObjectType objectType = (ObjectType) userdataObjectType;
@@ -186,7 +189,7 @@ namespace ggj
                             f->SetSensor(generatorData.isTrigger);
                         }
 
-                        UserData userData{objectType, {userDataForceX, userDataForceY}, userdataCommand, name};
+                        UserData userData{objectType, {userDataForceX, userDataForceY}, userdataCommand, userdataDialogId, name};
                         generatorData.userData = userData;
 
                         generatorData.pos = pos;
@@ -215,6 +218,7 @@ namespace ggj
         }
 
         m_hud.update(timeDelta);
+        m_dialog.update(timeDelta);
 
         if (m_player != nullptr)
         {
@@ -261,6 +265,7 @@ namespace ggj
         }
         m_camera.EndMode();
         m_hud.draw();
+        m_dialog.draw();
     }
 
     void World::generatePhysicsObject(const std::string &name, b2Body *body, const ObjectGeneratorData &generatorData)

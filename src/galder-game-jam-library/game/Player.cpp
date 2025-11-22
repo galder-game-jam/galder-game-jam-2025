@@ -22,6 +22,11 @@ namespace ggj
             setPlayerState(PlayerState::Dead);
             m_body->SetEnabled(false);
         }
+        if (m_inDialog)
+        {
+            setPlayerState(PlayerState::Idle);
+            //m_body->SetEnabled(false);
+        }
         PhysicsObject::update(timeDelta);
 
         handleInputs(timeDelta);
@@ -52,6 +57,11 @@ namespace ggj
             }
             else
                 return;
+        }
+        if (m_inDialog)
+        {
+            m_velocity = raylib::Vector2{0, 0};
+            return;
         }
 
         //Should have a collection of commands or something assigned to the player for a best practice approach
@@ -192,6 +202,13 @@ namespace ggj
         {
             ++m_score;
         }
+        if (b->getUserData()->getObjectType() == ObjectType::Dialog)
+        {
+            std::string dialogId = b->getUserData()->getDialogId();
+
+            m_inDialog = true;
+            m_currentDialogId = dialogId;
+        }
     }
 
     int Player::getScore() const
@@ -213,8 +230,25 @@ namespace ggj
     {
         m_hasClearedLevel = hasClearedLevel;
     }
+
+    void Player::setHasFinishedDialog()
+    {
+        m_inDialog = false;
+        m_currentDialogId = {};
+        //m_body->SetEnabled(true);
+    }
     Hitbox *Player::getHitbox()
     {
         return &m_hitbox;
+    }
+
+    bool Player::isInDialog() const
+    {
+        return m_inDialog;
+    }
+
+    std::string Player::getDialogId()
+    {
+        return m_currentDialogId;
     }
 } // dev

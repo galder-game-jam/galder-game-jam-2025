@@ -23,7 +23,7 @@ namespace ggj
 
         private:
             std::map<uint16_t, std::pair<std::string, Colori>> m_debugTexts {};
-            int32_t m_fontSize {32};
+            int32_t m_fontSize {15};
         
             raylib::Font* m_font{nullptr};
     };

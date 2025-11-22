@@ -25,4 +25,6 @@ add_library(galder-game-jam-library GalderGameJamLibrary.h managers/GameManager.
         game/projectiles/Projectile.h
         managers/ManagerDiCollection.hpp
         game/Hud.cpp
-        game/Hud.h)
+        game/Hud.h
+        game/Dialog.cpp
+        game/Dialog.h)

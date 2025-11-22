@@ -17,6 +17,10 @@ namespace ggj
             m_hud.initialize();
             m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+            m_dialog.initialize();
+            m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
         }
 
         //Load custom font
@@ -26,6 +30,7 @@ namespace ggj
         m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
         m_debugManager.setFont(&m_font);
         m_hud.setFont(&m_font);
+        m_dialog.setFont(&m_font);
 
         return projectExists;
     }
@@ -67,7 +72,7 @@ namespace ggj
                                 m_startupIndex = getStageIndexByFilename(file.filename().string());
                             }
                         }
-                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map), m_hud);
+                        m_worlds[stage] = std::make_unique<World>(m_logger, m_resources, m_mapper, m_textures, m_window, m_input, m_collisionManager, m_debugManager, m_animationManager, m_userDataManager, std::move(map), m_hud, m_dialog);
                         m_worlds[stage]->initialize();
                         m_logger.debug(fmt::format("World added: {0}", file.filename().generic_string()));
                     }
@@ -104,6 +109,9 @@ namespace ggj
         {
             m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+            m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+            m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
         }
         #endif
 
@@ -115,13 +123,17 @@ namespace ggj
             m_worlds[m_currentStageIndex]->update(timeDelta);
             if(m_worlds[m_currentStageIndex]->isLevelCleared())
             {
+                m_worlds[m_currentStageIndex]->setLevelCleared(false);
+                ++m_currentStageIndex;
+
+                if(m_worlds.count(m_currentStageIndex) == 0)
+                    m_currentStageIndex = FINAL_MAP_ID;
+
                 m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_hud.setWorld(m_worlds[m_currentStageIndex].get());
 
-                m_worlds[m_currentStageIndex]->setLevelCleared(false);
-                ++m_currentStageIndex;
-                if(m_worlds.count(m_currentStageIndex) == 0)
-                    m_currentStageIndex = FINAL_MAP_ID;
+                m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
             }
         }
     }

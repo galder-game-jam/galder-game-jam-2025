@@ -52,6 +52,9 @@
 #include "managers/UserDataManager.hpp"
 #include "managers/ManagerDiCollection.hpp"
 
+//Dialog
+#include "game/Dialog.h"
+
 #include "managers/WorldManager.h"
 
 //Network

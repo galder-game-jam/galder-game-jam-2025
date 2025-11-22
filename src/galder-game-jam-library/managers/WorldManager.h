@@ -24,11 +24,11 @@ namespace ggj
         public:
 
             WorldManager(ggj::ILogger &logger, IMapper &mapper,
-                         raylib::Window &window, ggj::ManagerDiCollection &managers, Hud &hud)
+                         raylib::Window &window, ggj::ManagerDiCollection &managers, Hud &hud, Dialog &dialog)
                     : m_managers {managers}, m_logger{logger},  m_resources {managers.resources}, m_mapper{mapper},
                       m_textures{managers.textures}, m_window{window}, m_input{managers.input}, m_collisionManager {managers.collision},
                       m_debugManager{managers.debug}, m_animationManager{managers.animation}, m_userDataManager{managers.userData},
-                      m_hud {hud}
+                      m_hud {hud}, m_dialog {dialog}
             {
 
             }
@@ -58,6 +58,7 @@ namespace ggj
             ggj::IAnimationManager<ggj::Animation, ggj::AnimationName> &m_animationManager;
             IUserDataManager<PhysicsObject*> &m_userDataManager;
             Hud &m_hud;
+            Dialog &m_dialog;
 
             std::unique_ptr<tson::Project> m_project{nullptr};
 

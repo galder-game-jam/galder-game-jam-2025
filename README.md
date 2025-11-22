@@ -5,27 +5,24 @@ A game jam with André Søberg and Robin Berg Pettersen that found place on 21.-
 # The Game
 
 - `galder-game-jam-2025` contains simple code to showcase a very minimal
-  and simple game concept for a top-down RPG.
+  and simple game concept for a top-down RPG. This is a continuation of the previous RPG from 2024, but this time with a proof-of-concept HUD and dialog system. 
 - When compiled as `Debug` you also get:
-    - The option to go to switch maps using the `F1`/`F2` keys.
+    - The option to go to switch maps using the `F1`/`F2` keys
     - Toggle visible hit boxes by pressing `F9`
-    - Debug text via the debug manager.
+    - Press '+' to grant yourself extra lives
+    - Debug text via the debug manager
 - Player1 controls:
   - `W`/`A`/`S`/`D`: Move character
   - `C`: Attack with daggers
   - `Q` to respawn if you die
+  - `F8` to toggle HUD visibility
   - `Space`: Toggle sprite rotating with physics engine
   - `Enter`: Toggle camera following player. (Debug mode only)
-- Player2 controls
-  - `Up`/`Left`/`Down`/`Right`: Move character
-  - `K`: Use mage spell
-  - `J` to respawn if you die
-  - `L`: Toggle sprite rotating with physics engine.
 
 ![](content/ggj-2024.gif)
 
 - The objective of the game is simple:
-  - Cooperate to kill all enemies to open portal to advance to the next level.
+  - Kill all enemies to open portal to advance to the next level.
   - Collect coins to gather points
   - You have three lives before dying (every death costs one coin)
 
@@ -73,35 +70,27 @@ Most of the graphics are taken from [OpenGameArt](https://opengameart.org).
 
 The following graphics from [OpenGameArt](https://opengameart.org) are used in the game:
 
-| Name                            | Creator         | License                 | URL                                                                  |
-|---------------------------------|-----------------|-------------------------|----------------------------------------------------------------------|
-| gem1/gem2/gem3/gem4             | Clint Bellanger | CC-BY-SA 3.0            | https://opengameart.org/content/gem-icons                            |
-| bat.png                         | bagzie          | OGA-BY 3.0              | https://opengameart.org/content/bat-sprite                           |
-| ninja.png                       | needcoffee      | Public Domain           | https://opengameart.org/content/needcoffee%E2%80%99s-mostrichgrinser |
-| greggman-backgrounds            | Zeyu Ren        | CC-BY 3.0               | https://opengameart.org/content/backgrounds-for-2d-platformers       |
-| OPP Jungle Tiles                | Hapiel          | CC-BY 3.0               | https://opengameart.org/content/opp-jungle-tiles                     |
-| 700+ RPG Icons                  | Lorc            | CC-BY 3.0               | https://opengameart.org/content/700-rpg-icons                        |
-| Animated Explosions             | ansimuz         | CC0                     | https://opengameart.org/content/animated-explosions                  |
-| Golden UI                       | Buch            | CC0                     | https://opengameart.org/content/golden-ui                            |
-| melee/swoosh.png                | ?               | ?                       | ?                                                                    |
-| Gotthicvania Swamp              | ansimuz         | CC0                     | https://opengameart.org/content/gotthicvania-swamp                   |
-| Hero spritesheets (Ars Notoria) | Balmer          | CC0                     | https://opengameart.org/content/hero-spritesheets-ars-notoria        |
-| Portraits Generators            | aamatniekss     | ?                       | https://itch.io/queue/c/1866028/portraits-generators?game_id=105631  |
-| Rotating Coin                   | Puddin          | CC0                     | https://opengameart.org/content/rotating-coin                        |
-| Portals                         | LetargicDev     | CC0                     | https://opengameart.org/content/portals                              |
-| pixel-crawler-free(folder)      | Anokolisa       | ?                       | https://anokolisa.itch.io/dungeon-crawler-pixel-art-asset-pack       |
-| tiny-swords(folder)             | Pixel Frog      | Public Domain           | https://pixelfrog-assets.itch.io/tiny-swords                         |
-| mystic-woods-free(folder)       | Endavor         | Free for non-commercial | https://game-endeavor.itch.io/mystic-woods                           |
-| whispers-of-avalon(folder)      | Leonard Pabin   | CC-BY 3.0/GPL3.0/GPL2.0 | https://opengameart.org/content/whispers-of-avalon-grassland-tileset |
-
-## Potential 2024 assets
-
-| Name                       | Creator       | License                 | URL                                                                  |
-|----------------------------|---------------|-------------------------|----------------------------------------------------------------------|
-| pixel-crawler-free(folder) | Anokolisa     | ?                       | https://anokolisa.itch.io/dungeon-crawler-pixel-art-asset-pack       |
-| tiny-swords(folder)        | Pixel Frog    | Public Domain           | https://pixelfrog-assets.itch.io/tiny-swords                         |
-| mystic-woods-free(folder)  | Endavor       | Free for non-commercial | https://game-endeavor.itch.io/mystic-woods                           |
-| whispers-of-avalon(folder) | Leonard Pabin | CC-BY 3.0/GPL3.0/GPL2.0 | https://opengameart.org/content/whispers-of-avalon-grassland-tileset |
+| Name                                 | Creator         | License                 | URL                                                                  |
+|--------------------------------------|-----------------|-------------------------|----------------------------------------------------------------------|
+| gem1/gem2/gem3/gem4                  | Clint Bellanger | CC-BY-SA 3.0            | https://opengameart.org/content/gem-icons                            |
+| bat.png                              | bagzie          | OGA-BY 3.0              | https://opengameart.org/content/bat-sprite                           |
+| ninja.png                            | needcoffee      | Public Domain           | https://opengameart.org/content/needcoffee%E2%80%99s-mostrichgrinser |
+| greggman-backgrounds                 | Zeyu Ren        | CC-BY 3.0               | https://opengameart.org/content/backgrounds-for-2d-platformers       |
+| OPP Jungle Tiles                     | Hapiel          | CC-BY 3.0               | https://opengameart.org/content/opp-jungle-tiles                     |
+| 700+ RPG Icons                       | Lorc            | CC-BY 3.0               | https://opengameart.org/content/700-rpg-icons                        |
+| Animated Explosions                  | ansimuz         | CC0                     | https://opengameart.org/content/animated-explosions                  |
+| Golden UI                            | Buch            | CC0                     | https://opengameart.org/content/golden-ui                            |
+| melee/swoosh.png                     | ?               | ?                       | ?                                                                    |
+| Gotthicvania Swamp                   | ansimuz         | CC0                     | https://opengameart.org/content/gotthicvania-swamp                   |
+| Hero spritesheets (Ars Notoria)      | Balmer          | CC0                     | https://opengameart.org/content/hero-spritesheets-ars-notoria        |
+| Portraits Generators                 | aamatniekss     | ?                       | https://itch.io/queue/c/1866028/portraits-generators?game_id=105631  |
+| Rotating Coin                        | Puddin          | CC0                     | https://opengameart.org/content/rotating-coin                        |
+| Portals                              | LetargicDev     | CC0                     | https://opengameart.org/content/portals                              |
+| pixel-crawler-free(folder)           | Anokolisa       | ?                       | https://anokolisa.itch.io/dungeon-crawler-pixel-art-asset-pack       |
+| tiny-swords(folder)                  | Pixel Frog      | Public Domain           | https://pixelfrog-assets.itch.io/tiny-swords                         |
+| mystic-woods-free(folder)            | Endavor         | Free for non-commercial | https://game-endeavor.itch.io/mystic-woods                           |
+| whispers-of-avalon(folder)           | Leonard Pabin   | CC-BY 3.0/GPL3.0/GPL2.0 | https://opengameart.org/content/whispers-of-avalon-grassland-tileset |
+| Golden UI - Bigger Than Ever edition | Buch            | CC-BY-SA 3.0            | https://opengameart.org/content/golden-ui-bigger-than-ever-edition   |
 
 # Networking
 

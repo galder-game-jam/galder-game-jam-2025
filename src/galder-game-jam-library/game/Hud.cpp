@@ -126,12 +126,9 @@ namespace ggj
         int enemiesKilled = enemies - enemiesLeft;
         bool isOpen = enemiesKilled == enemies;
 
-        m_font->DrawText(TextFormat("Quest Log"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0,
-                         YELLOW);
-        m_font->DrawText(TextFormat("Kill enemies %i/%i", enemiesKilled, enemies),
-                         raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
-        m_font->DrawText(TextFormat("Portal is %s", isOpen ? "open" : "closed"),
-                         raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, isOpen ? GREEN : RED);
+        m_font->DrawText(TextFormat("Quest Log"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 7}, FONT_SIZE, 0,YELLOW);
+        m_font->DrawText(TextFormat("Kill enemies %i/%i", enemiesKilled, enemies),raylib::Vector2{offset.x + TILE_UNIT, offset.y + 27}, FONT_SIZE, 0, BLACK);
+        m_font->DrawText(TextFormat("Portal is %s", isOpen ? "open" : "closed"),raylib::Vector2{offset.x + TILE_UNIT, offset.y + 67}, FONT_SIZE, 0, isOpen ? GREEN : RED);
     }
 
     void Hud::DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd,

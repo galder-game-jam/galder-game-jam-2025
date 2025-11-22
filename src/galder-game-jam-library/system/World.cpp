@@ -3,8 +3,7 @@
 //
 
 #include "World.h"
-
-#include "../game/Hud.hpp"
+#include "../game/Hud.h"
 #include "../graphics/Sprite.h"
 
 namespace ggj

@@ -10,7 +10,6 @@
 
 namespace ggj
 {
-
     class Hud : public IGameObject<raylib::Vector2>
     {
         public:
@@ -30,6 +29,7 @@ namespace ggj
                 m_coinOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 120 };
                 m_killsOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 152 };
                 m_playerPositionOffset = raylib::Vector2{ m_position.x + 570, m_position.y + 570 };
+                m_questLogOffset = raylib::Vector2{ m_position.x + 0, m_position.y + 400 };
 
                 m_hudTexture = m_textures.get(TextureName::HudRpgSubset);
             }
@@ -78,9 +78,48 @@ namespace ggj
                 drawCoinBar(m_coinOffset);
                 drawPlayerPositionBar(m_playerPositionOffset);
                 drawKillsBar(m_killsOffset);
+
+                drawQuestLog(m_questLogOffset, 4,3);
+
             }
 
         private:
+
+            void drawQuestLog(raylib::Vector2 offset, int width, int height) const
+            {
+                float grid = TILE_UNIT * 2;
+                raylib::Vector2 shrinkflation = raylib::Vector2(4, 4);
+
+                raylib::Rectangle backdrop = raylib::Rectangle(offset + shrinkflation, raylib::Vector2((width+2) * grid, (height+2) * grid) - shrinkflation * 2);
+                DrawRectangle(backdrop.x, backdrop.y, backdrop.width, backdrop.height, raylib::Color(143, 86, 59, 200));
+
+                raylib::Rectangle tiles[3][3] =
+                {
+                    { m_boxTopLeftRect,    m_boxTopMiddleRect,    m_boxTopRightRect    },
+                    { m_boxMiddleLeftRect, m_boxMiddleMiddleRect, m_boxMiddleRightRect },
+                    { m_boxBottomLeftRect, m_boxBottomMiddleRect, m_boxBottomRightRect }
+                };
+
+                for (int y = 0; y < height + 2; ++y)
+                {
+                    for (int x = 0; x < width + 2; ++x)
+                    {
+                        int tx = (x == 0) ? 0 : (x == width + 1 ? 2 : 1);   // left/mid/right tile
+                        int ty = (y == 0) ? 0 : (y == height + 1 ? 2 : 1);  // top/mid/bottom tile
+
+                        const raylib::Rectangle& src = tiles[ty][tx];
+                        raylib::Vector2 pos = offset + raylib::Vector2{grid * x, grid * y};
+
+                        m_hudTexture->Draw(src, pos);
+                    }
+                }
+
+                // int enemies = m_currentWorld->getEnemies();
+                // int enemiesLeft = m_currentWorld->getNumberOfEnemiesLeft();
+
+                DrawText(TextFormat("Quest - Kill enemies 0/250"), offset.x + TILE_UNIT * 3, offset.y + 5, FONT_SIZE, BLACK);
+            }
+
             void DrawResourceBar(const float counter, raylib::Rectangle rectResource, raylib::Rectangle rectEnd, float barNo) const
             {
                 float barTypeOffset = 20 * barNo;
@@ -184,6 +223,17 @@ namespace ggj
             raylib::Rectangle m_barRectLeft {TILE_UNIT * 0, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
             raylib::Rectangle m_barRectMiddle {TILE_UNIT * 2, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
             raylib::Rectangle m_barRectRight {TILE_UNIT * 4, TILE_UNIT * 6, TILE_UNIT * 2, TILE_UNIT * 1 + 10};
+
+            raylib::Vector2 m_questLogOffset{};
+            raylib::Rectangle m_boxTopLeftRect {TILE_UNIT * 0, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxTopMiddleRect {TILE_UNIT * 2, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxTopRightRect {TILE_UNIT * 4, TILE_UNIT * 8, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxMiddleLeftRect {TILE_UNIT * 0, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxMiddleMiddleRect {TILE_UNIT * 2, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxMiddleRightRect {TILE_UNIT * 4, TILE_UNIT * 10, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxBottomLeftRect {TILE_UNIT * 0, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxBottomMiddleRect {TILE_UNIT * 2, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
+            raylib::Rectangle m_boxBottomRightRect {TILE_UNIT * 4, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
     };
 
 }

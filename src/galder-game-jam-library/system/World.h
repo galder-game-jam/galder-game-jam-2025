@@ -16,10 +16,11 @@
 #include "../graphics/PhysicsObject.h"
 #include "../GalderGameJamLibrary.h"
 #include "ObjectGeneratorData.hpp"
-#include "../game/Hud.hpp"
 
 namespace ggj
 {
+    class Hud; // Forward declaration
+
     class World : public ggj::IWorld<int32_t>
     {
         public:

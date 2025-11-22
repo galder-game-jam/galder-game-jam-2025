@@ -3,6 +3,7 @@
 //
 
 #include "WorldManager.h"
+#include "../game/Hud.h"
 
 namespace ggj
 {

@@ -38,7 +38,7 @@
 #include "game/interactables/PowerUp.h"
 
 //Hud
-#include "game/Hud.hpp"
+#include "game/Hud.h"
 
 //Managers
 #include "managers/AnimationManager.h"

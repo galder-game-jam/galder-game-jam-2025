@@ -91,7 +91,7 @@ namespace ggj
                 raylib::Vector2 shrinkflation = raylib::Vector2(4, 4);
 
                 raylib::Rectangle backdrop = raylib::Rectangle(offset + shrinkflation, raylib::Vector2((width+2) * grid, (height+2) * grid) - shrinkflation * 2);
-                DrawRectangle(backdrop.x, backdrop.y, backdrop.width, backdrop.height, raylib::Color(143, 86, 59, 180));
+                DrawRectangle(backdrop.x, backdrop.y, backdrop.width, backdrop.height, raylib::Color(143, 86, 59, HUD_ALPHA));
 
                 raylib::Rectangle tiles[3][3] =
                 {
@@ -198,6 +198,7 @@ namespace ggj
             const float TILE_UNIT = 16.0f;
             const int FONT_SIZE = 15;
             const raylib::Color HUD_FONT_COLOR = BLACK;
+            const int HUD_ALPHA = 180;
 
             float m_health{};
             float m_mana{};

@@ -50,11 +50,20 @@ void ggj::Dialog::move(const raylib::Vector2& toMove)
 
 void ggj::Dialog::update(float timeDelta)
 {
+    if (m_currentPlayer->isInDialog())
+    {
+        m_dialogId = m_currentPlayer->getDialogId();
+        m_draw = true;
+        handleInputs(timeDelta);
+    }
 }
 
 void ggj::Dialog::draw()
 {
-    drawDialogBox(m_dialogOffset, 15, 3);
+    if (m_draw)
+    {
+        drawDialogBox(m_dialogOffset, 15, 3);
+    }
 }
 
 void ggj::Dialog::drawDialogBox(raylib::Vector2 offset, int width, int height) const
@@ -100,4 +109,14 @@ void ggj::Dialog::drawDialogBox(raylib::Vector2 offset, int width, int height) c
     m_font->DrawText(TextFormat("Currently, %i creatures are running around. Happy little bastards...", enemies), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 87}, FONT_SIZE, 0, BLACK);
     m_font->DrawText(TextFormat("Kill them for me, and I will grant you access to my torture chamber!"), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 107}, FONT_SIZE, 0, BLACK);
     m_font->DrawText(TextFormat("When the deed is done, you will find a portal in a cave to the north."), raylib::Vector2{offset.x + TILE_UNIT, offset.y + 127}, FONT_SIZE, 0, BLACK);
+}
+
+void ggj::Dialog::handleInputs(float timeDelta)
+{
+    if(m_inputManager.keyDown(KeyboardKey::Tab))
+    {
+        m_draw = false;
+        m_dialogId = {};
+        m_currentPlayer->setHasFinishedDialog();
+    }
 }

@@ -21,7 +21,10 @@
                 "Trap",
                 "PowerUp",
                 "Coin",
-                "Portal"
+                "Portal",
+                "Projectile",
+                "PlayerHitbox",
+                "Dialog"
             ],
             "valuesAsFlags": false
         },

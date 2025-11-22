@@ -17,7 +17,7 @@ namespace ggj
     {
         public:
             UserData() = default;
-            UserData(ObjectType objectType, const raylib::Vector2 &force, std::string command, std::string name): m_objectType{objectType}, m_force{force}, m_command {std::move(command)}, m_name {std::move(name)}
+            UserData(ObjectType objectType, const raylib::Vector2 &force, std::string command, std::string dialog_id, std::string name): m_objectType{objectType}, m_force{force}, m_command {std::move(command)}, m_dialogId {std::string(dialog_id)}, m_name {std::move(name)}
             {
             }
 
@@ -28,6 +28,7 @@ namespace ggj
             [[nodiscard]] bool shouldBeDestroyed() const { return m_shouldBeDestroyed; }
             [[nodiscard]] const std::string &getCommand() const { return m_command; }
             [[nodiscard]] const std::string &getName() const { return m_name; }
+            [[nodiscard]] const std::string &getDialogId() const { return m_dialogId; }
 
             int enemiesKilled {0};
 
@@ -36,6 +37,7 @@ namespace ggj
             raylib::Vector2 m_force {0.f, 0.f};
             bool m_shouldBeDestroyed{false};
             std::string m_command{};
+            std::string m_dialogId{};
             std::string m_name{};
     };
 

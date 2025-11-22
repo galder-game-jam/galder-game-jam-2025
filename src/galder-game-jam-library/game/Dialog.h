@@ -32,6 +32,7 @@ namespace ggj
             void update(float timeDelta) override;
             void draw() override;
         private:
+        void handleInputs(float timeDelta);
         void drawDialogBox(raylib::Vector2 offset, int width, int height) const;
         IMapper &m_mapper;
         ITextureManager<TextureName, raylib::Texture> &m_textures;
@@ -65,6 +66,8 @@ namespace ggj
         raylib::Rectangle m_boxBottomMiddleRect {TILE_UNIT * 2, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
         raylib::Rectangle m_boxBottomRightRect {TILE_UNIT * 4, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
 
+        std::string m_dialogId{};
+        bool m_draw {};
     };
 }
 

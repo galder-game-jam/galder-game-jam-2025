@@ -4454,6 +4454,54 @@
                  "width":16,
                  "x":372,
                  "y":535.333333333333
+                }, 
+                {
+                 "height":16,
+                 "id":531,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"sprite",
+                         "type":"string",
+                         "value":"ninja.png"
+                        }, 
+                        {
+                         "name":"sprite_size_x",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"sprite_size_y",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"userdata_command",
+                         "type":"string",
+                         "value":"dialog_trigger"
+                        }, 
+                        {
+                         "name":"userdata_dialog_id",
+                         "type":"string",
+                         "value":"initialGreeting"
+                        }, 
+                        {
+                         "name":"userdata_objecttype",
+                         "type":"int",
+                         "value":9
+                        }, 
+                        {
+                         "name":"userdata_objecttype_enum",
+                         "propertytype":"ObjectType",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"PhysicsObject",
+                 "visible":true,
+                 "width":16,
+                 "x":455.333333333333,
+                 "y":420.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4533,7 +4581,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":531,
+ "nextobjectid":532,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -138,7 +138,7 @@ namespace ggj
         raylib::Vector2 spriteSize = raylib::Vector2(r.width, r.height);
 
         raylib::Texture *tex = m_textures.get(texture);
-        UserData userData{ObjectType::Projectile, {0.f, 0.f}, "damage", "projectile"};
+        UserData userData{ObjectType::Projectile, {0.f, 0.f}, "damage", "", "projectile"};
 
         bool isVisible = true;
         T* obj = createObject<T>(m_animationManager, m_mapper, body, size, size, rect, tex, userData, velocity,

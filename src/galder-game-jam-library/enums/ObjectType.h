@@ -18,7 +18,8 @@ namespace ggj
         Coin = 5,
         Portal = 6,
         Projectile = 7,
-        PlayerHitbox = 8
+        PlayerHitbox = 8,
+        Dialog = 9,
     };
 
 } // ggj

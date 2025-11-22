@@ -96,6 +96,10 @@ namespace ggj
 
         HudRpg = 300,
         HudRpgSubset = 301,
+
+        FontDroidSans = 400,
+        FontDroidSansBold = 401,
+        FontPixantiqua = 402
     };
 }
 

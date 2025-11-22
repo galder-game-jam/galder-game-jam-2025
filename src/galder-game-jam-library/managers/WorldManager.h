@@ -62,6 +62,7 @@ namespace ggj
             //Stage m_currentStage{Stage::None};
             int32_t m_startupIndex{-1};
             int32_t m_currentStageIndex {-1};
+            raylib::Font m_font;
             //std::vector<std::unique_ptr<tson::Map>> m_maps;
 
     };

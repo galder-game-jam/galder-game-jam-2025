@@ -19,13 +19,13 @@ namespace ggj
             void clearText() override;
             void update(float timeDelta) override;
             void draw() override;
-            void setFont(Font* font) override;
+            void setFont(raylib::Font* font) override;
 
         private:
             std::map<uint16_t, std::pair<std::string, Colori>> m_debugTexts {};
-            int32_t m_fontSize {20};
-            
-            Font *m_font{nullptr};
+            int32_t m_fontSize {32};
+        
+            raylib::Font* m_font{nullptr};
     };
 
 } // dev

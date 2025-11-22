@@ -18,6 +18,13 @@ namespace ggj
             m_hud.setWorld(m_worlds[m_currentStageIndex].get());
         }
 
+        //Load custom font
+        std::string fontPath = m_resources.getResource(ResourceName::FontDroidSansBold);
+        m_font.Load(fontPath, 32, nullptr, 250);
+        m_font.GetTexture().GenMipmaps();
+        m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
+        m_debugManager.setFont(&m_font);
+
         return projectExists;
     }
 

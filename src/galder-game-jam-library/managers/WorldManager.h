@@ -18,17 +18,18 @@
 namespace ggj
 {
     class Hud; // Forward declaration
+    class CharacterSelectScreen; // Forward declaration
 
     class WorldManager : public ggj::IWorldManager
     {
         public:
 
             WorldManager(ggj::ILogger &logger, IMapper &mapper,
-                         raylib::Window &window, ggj::ManagerDiCollection &managers, Hud &hud, Dialog &dialog)
+                         raylib::Window &window, ggj::ManagerDiCollection &managers, Hud &hud, Dialog &dialog, CharacterSelectScreen &characterSelectScreen)
                     : m_managers {managers}, m_logger{logger},  m_resources {managers.resources}, m_mapper{mapper},
                       m_textures{managers.textures}, m_window{window}, m_input{managers.input}, m_collisionManager {managers.collision},
                       m_debugManager{managers.debug}, m_animationManager{managers.animation}, m_userDataManager{managers.userData},
-                      m_hud {hud}, m_dialog {dialog}
+                      m_hud {hud}, m_dialog {dialog}, m_characterSelectScreen {characterSelectScreen}
             {
 
             }
@@ -59,6 +60,7 @@ namespace ggj
             IUserDataManager<PhysicsObject*> &m_userDataManager;
             Hud &m_hud;
             Dialog &m_dialog;
+            CharacterSelectScreen &m_characterSelectScreen;
 
             std::unique_ptr<tson::Project> m_project{nullptr};
 

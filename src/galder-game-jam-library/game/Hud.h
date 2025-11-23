@@ -24,7 +24,6 @@ namespace ggj
             void setFont(raylib::Font *font);
             void setPlayer(Player *player);
             void setWorld(World *world);
-            void setVisible(bool isVisible);
             void rotate(float degrees) override;
             void scale(float scale) override;
             void move(const raylib::Vector2 &toMove) override;

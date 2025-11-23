@@ -21,16 +21,19 @@ namespace ggj
             m_dialog.initialize();
             m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
-        }
 
-        //Load custom font
-        std::string fontPath = m_resources.getResource(ResourceName::FontDroidSansBold);
-        m_font.Load(fontPath, 64, nullptr, 250);
-        m_font.GetTexture().GenMipmaps();
-        m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
-        m_debugManager.setFont(&m_font);
-        m_hud.setFont(&m_font);
-        m_dialog.setFont(&m_font);
+            //Load custom font
+            std::string fontPath = m_resources.getResource(ResourceName::FontDroidSansBold);
+            m_font.Load(fontPath, 64, nullptr, 250);
+            m_font.GetTexture().GenMipmaps();
+            m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
+            m_debugManager.setFont(&m_font);
+            m_hud.setFont(&m_font);
+            m_dialog.setFont(&m_font);
+
+            m_characterSelectScreen.initialize();
+            m_characterSelectScreen.setFont(&m_font);
+        }
 
         return projectExists;
     }
@@ -103,7 +106,12 @@ namespace ggj
     {
         if (m_characterSelectScreenActive)
         {
-
+            m_characterSelectScreen.update(timeDelta);
+            if (m_characterSelectScreen.isCharacterSelected())
+            {
+                //Do something
+                m_characterSelectScreenActive = false;
+            }
         }
         else
         {
@@ -149,7 +157,7 @@ namespace ggj
     {
         if (m_characterSelectScreenActive)
         {
-
+            m_characterSelectScreen.draw();
         }
         else
         {

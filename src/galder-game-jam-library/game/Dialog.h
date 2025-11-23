@@ -66,7 +66,7 @@ namespace ggj
         raylib::Rectangle m_boxBottomMiddleRect {TILE_UNIT * 2, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
         raylib::Rectangle m_boxBottomRightRect {TILE_UNIT * 4, TILE_UNIT * 12, TILE_UNIT * 2, TILE_UNIT * 2};
 
-        raylib::Rectangle m_dialogButtonRect {TILE_UNIT * 0, TILE_UNIT * 15, TILE_UNIT * 1, TILE_UNIT * 1};
+        raylib::Rectangle m_dialogButtonRect {TILE_UNIT * 0, TILE_UNIT * 15, TILE_UNIT * 2, TILE_UNIT * 1 + 1};
         std::string m_dialogId{};
         bool m_draw {};
     };

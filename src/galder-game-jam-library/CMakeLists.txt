@@ -27,4 +27,6 @@ add_library(galder-game-jam-library GalderGameJamLibrary.h managers/GameManager.
         game/Hud.cpp
         game/Hud.h
         game/Dialog.cpp
-        game/Dialog.h)
+        game/Dialog.h
+        managers/DialogManager.cpp
+        managers/DialogManager.h)

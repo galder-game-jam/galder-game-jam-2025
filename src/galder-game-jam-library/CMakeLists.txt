@@ -29,4 +29,6 @@ add_library(galder-game-jam-library GalderGameJamLibrary.h managers/GameManager.
         game/Dialog.cpp
         game/Dialog.h
         managers/DialogManager.cpp
-        managers/DialogManager.h)
+        managers/DialogManager.h
+        system/CharacterSelectScreen.cpp
+        system/CharacterSelectScreen.h)

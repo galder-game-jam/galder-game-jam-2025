@@ -160,6 +160,9 @@ namespace ggj
                 m_texToRes[TextureName::HudRpgSubset] = ResourceName::HudRpgSubset;
                 m_texToRes[TextureName::HudRpgRoguePortrait] = ResourceName::HudRpgRoguePortrait;
                 m_texToRes[TextureName::HudRpgWizardPortrait] = ResourceName::HudRpgWizardPortrait;
+
+                m_texToRes[TextureName::CharacterSelectRoguePortrait] = ResourceName::CharacterSelectRoguePortrait;
+                m_texToRes[TextureName::CharacterSelectWizardPortrait] = ResourceName::CharacterSelectWizardPortrait;
             };
 
             TextureName getTextureNameByString(const std::string &id) override

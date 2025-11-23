@@ -54,6 +54,9 @@
 
 //Dialog
 #include "game/Dialog.h"
+#include "system/CharacterSelectScreen.h"
+
+//Character select
 
 #include "managers/WorldManager.h"
 

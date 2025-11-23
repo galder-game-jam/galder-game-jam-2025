@@ -21,16 +21,19 @@ namespace ggj
             m_dialog.initialize();
             m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
             m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
-        }
 
-        //Load custom font
-        std::string fontPath = m_resources.getResource(ResourceName::FontDroidSansBold);
-        m_font.Load(fontPath, 64, nullptr, 250);
-        m_font.GetTexture().GenMipmaps();
-        m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
-        m_debugManager.setFont(&m_font);
-        m_hud.setFont(&m_font);
-        m_dialog.setFont(&m_font);
+            //Load custom font
+            std::string fontPath = m_resources.getResource(ResourceName::FontDroidSansBold);
+            m_font.Load(fontPath, 64, nullptr, 250);
+            m_font.GetTexture().GenMipmaps();
+            m_font.GetTexture().SetFilter(TEXTURE_FILTER_BILINEAR);
+            m_debugManager.setFont(&m_font);
+            m_hud.setFont(&m_font);
+            m_dialog.setFont(&m_font);
+
+            m_characterSelectScreen.initialize();
+            m_characterSelectScreen.setFont(&m_font);
+        }
 
         return projectExists;
     }
@@ -101,51 +104,70 @@ namespace ggj
 
     void WorldManager::update(float timeDelta)
     {
-        #ifdef GAME_DEV_DEBUG
-        if (m_input.keyPressed(ggj::KeyboardKey::F1)) m_currentStageIndex = 1;
-        if (m_input.keyPressed(ggj::KeyboardKey::F2)) m_currentStageIndex = 2;
-        if (m_input.keyPressed(ggj::KeyboardKey::F3)) m_currentStageIndex = FINAL_MAP_ID;
-        if (m_input.keyPressed(ggj::KeyboardKey::F1) || m_input.keyPressed(ggj::KeyboardKey::F2) || m_input.keyPressed(ggj::KeyboardKey::F3))
+        if (m_characterSelectScreenActive)
         {
-            m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
-            m_hud.setWorld(m_worlds[m_currentStageIndex].get());
-
-            m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
-            m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
-        }
-        #endif
-
-        if (m_currentStageIndex == NO_MAP_ID)
-            return;
-
-        if (m_worlds.count(m_currentStageIndex) > 0)
-        {
-            m_worlds[m_currentStageIndex]->update(timeDelta);
-            if(m_worlds[m_currentStageIndex]->isLevelCleared())
+            m_characterSelectScreen.update(timeDelta);
+            if (m_characterSelectScreen.isCharacterSelected())
             {
-                m_worlds[m_currentStageIndex]->setLevelCleared(false);
-                ++m_currentStageIndex;
-
-                if(m_worlds.count(m_currentStageIndex) == 0)
-                    m_currentStageIndex = FINAL_MAP_ID;
-
+                //Do something
+                m_characterSelectScreenActive = false;
+            }
+        }
+        else
+        {
+#ifdef GAME_DEV_DEBUG
+            if (m_input.keyPressed(ggj::KeyboardKey::F1)) m_currentStageIndex = 1;
+            if (m_input.keyPressed(ggj::KeyboardKey::F2)) m_currentStageIndex = 2;
+            if (m_input.keyPressed(ggj::KeyboardKey::F3)) m_currentStageIndex = FINAL_MAP_ID;
+            if (m_input.keyPressed(ggj::KeyboardKey::F1) || m_input.keyPressed(ggj::KeyboardKey::F2) || m_input.keyPressed(ggj::KeyboardKey::F3))
+            {
                 m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_hud.setWorld(m_worlds[m_currentStageIndex].get());
 
                 m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
                 m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
             }
+#endif
+
+            if (m_currentStageIndex == NO_MAP_ID)
+                return;
+
+            if (m_worlds.count(m_currentStageIndex) > 0)
+            {
+                m_worlds[m_currentStageIndex]->update(timeDelta);
+                if(m_worlds[m_currentStageIndex]->isLevelCleared())
+                {
+                    m_worlds[m_currentStageIndex]->setLevelCleared(false);
+                    ++m_currentStageIndex;
+
+                    if(m_worlds.count(m_currentStageIndex) == 0)
+                        m_currentStageIndex = FINAL_MAP_ID;
+
+                    m_hud.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                    m_hud.setWorld(m_worlds[m_currentStageIndex].get());
+
+                    m_dialog.setPlayer(m_worlds[m_currentStageIndex]->getPlayer());
+                    m_dialog.setWorld(m_worlds[m_currentStageIndex].get());
+                }
+            }
         }
     }
 
     void WorldManager::draw()
     {
-        if (m_currentStageIndex == -1)
-            return;
-
-        if (m_worlds.count(m_currentStageIndex) > 0)
+        if (m_characterSelectScreenActive)
         {
-            m_worlds[m_currentStageIndex]->draw();
+            m_characterSelectScreen.draw();
+        }
+        else
+        {
+            if (m_currentStageIndex == -1)
+                return;
+
+            if (m_worlds.count(m_currentStageIndex) > 0)
+            {
+                m_worlds[m_currentStageIndex]->draw();
+            }
         }
     }
 

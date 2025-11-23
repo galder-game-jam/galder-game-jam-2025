@@ -40,11 +40,6 @@ namespace ggj
         m_currentWorld = world;
     }
 
-    void Hud::setVisible(bool isVisible)
-    {
-        m_isVisible = isVisible;
-    }
-
     void Hud::rotate(float degrees)
     {
     }

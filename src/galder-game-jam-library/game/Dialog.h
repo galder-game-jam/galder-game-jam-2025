@@ -63,6 +63,58 @@ namespace ggj
                         DialogChoice{"No", "initialGreetingNo"},
                     }
                 });
+
+                m_dialogManager.addDialog(DialogItem{"lostMoney",
+                    "Oh hello again!\n"
+                    "These moss-covered zombies attacked me, and I lost all my money when I ran.\n"
+                    "Since you are already running around on your killing spree,\n"
+                    "Can you collect the coins and return to me?",
+                    {
+                        DialogChoice{"No", "lostMoneyNo"},
+                        DialogChoice{"Hell no", "lostMoneyHellNo"},
+                        DialogChoice{"We'll see", "lostMoneyWellSee"},
+                        DialogChoice{"Fuck you", "lostMoneyFuckYou"},
+                    }
+                });
+
+                m_dialogManager.addDialog(DialogItem{"lostMoneyNo",
+                    "Hey!\n"
+                    "That money belongs to me!\n"
+                    "Didn't your mother teach you stealing is wrong!?\n"
+                    "So I'm asking again; Can you collect the coins and return to me?",
+                    {
+                        DialogChoice{"Hell no", "lostMoneyHellNo"},
+                        DialogChoice{"We'll see", "lostMoneyWellSee"},
+                        DialogChoice{"Fuck you", "lostMoneyFuckYou"},
+                    }
+                });
+
+                m_dialogManager.addDialog(DialogItem{"lostMoneyHellNo",
+                    "Whoah there!\n"
+                    "No need to get all pumped up!\n"
+                    "Watch so you don't pop a blood vessel or something.\n"
+                    "So I'm asking again; Can you collect the coins and return to me?",
+                    {
+                        DialogChoice{"We'll see", "lostMoneyWellSee"},
+                    }
+                });
+
+                m_dialogManager.addDialog(DialogItem{"lostMoneyFuckYou",
+                    "Watch your tongue traveller!\n"
+                    "I do not respond well to insults\n"
+                    "So I'm asking again; Can you collect the coins and return to me?",
+                    {
+                        DialogChoice{"We'll see", "lostMoneyWellSee"},
+                    }
+                });
+
+                m_dialogManager.addDialog(DialogItem{"lostMoneyWellSee",
+                    "Ah well.\n"
+                    "A maybe is better than nothing.\n"
+                    "Especially coming from such a lowlife like yourself.\n"
+                    "Come see me when you have collected at least 10 gold for me.",
+                    {}
+                });
             }
             void initialize();
             void setFont(raylib::Font* font);

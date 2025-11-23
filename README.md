@@ -9,15 +9,15 @@ A game jam with André Søberg and Robin Berg Pettersen that found place on 21.-
 - When compiled as `Debug` you also get:
     - The option to go to switch maps using the `F1`/`F2` keys
     - Toggle visible hit boxes by pressing `F9`
-    - Press '+' to grant yourself extra lives
+    - Press `+` to grant yourself extra lives
     - Debug text via the debug manager
 - Player1 controls:
   - `W`/`A`/`S`/`D`: Move character
   - `C`: Attack with daggers
   - `Q` to respawn if you die
   - `F8` to toggle HUD visibility
-  - `Space`: Toggle sprite rotating with physics engine
-  - `Enter`: Toggle camera following player. (Debug mode only)
+  - `Enter`: Toggle sprite rotating with physics engine
+  - `T`: Toggle camera following player. (Debug mode only)
 
 ![](content/ggj-2024.gif)
 
@@ -91,7 +91,7 @@ The following graphics from [OpenGameArt](https://opengameart.org) are used in t
 | mystic-woods-free(folder)            | Endavor         | Free for non-commercial | https://game-endeavor.itch.io/mystic-woods                           |
 | whispers-of-avalon(folder)           | Leonard Pabin   | CC-BY 3.0/GPL3.0/GPL2.0 | https://opengameart.org/content/whispers-of-avalon-grassland-tileset |
 | Golden UI - Bigger Than Ever edition | Buch            | CC-BY-SA 3.0            | https://opengameart.org/content/golden-ui-bigger-than-ever-edition   |
-
+| Virtual-Key Codes tileset            | YellowAfterlife | CC0                     | https://opengameart.org/content/virtual-key-codes-tileset            |
 # Networking
 
 **IMPORTANT: Build `GameNetowrkingSockets` and `GameNetworkingSockets_s` individually first. Temporary solution, but for now this is what works.**

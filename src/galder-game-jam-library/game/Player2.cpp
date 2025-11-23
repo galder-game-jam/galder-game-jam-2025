@@ -118,7 +118,7 @@ namespace ggj
             m_hitbox.setVisible(!m_hitbox.isVisible());
         }
         //Toggle camera-follow
-        if(m_inputManager.keyPressed(KeyboardKey::Enter))
+        if(m_inputManager.keyPressed(KeyboardKey::T))
         {
             m_cameraShouldFollowPlayer = !m_cameraShouldFollowPlayer;
         }

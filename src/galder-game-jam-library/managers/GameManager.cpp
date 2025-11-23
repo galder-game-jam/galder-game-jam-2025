@@ -24,7 +24,7 @@ void ggj::GameManager::update(float timeDelta)
     m_lastTimeDelta = timeDelta;
     m_debugManager.clearText();
     m_worlds.update(timeDelta);
-    m_debugManager.setText(0, "Debug: F1/F2/..=change map. W=jump, Space=rotate. Move = A/D. Hitbox = F9", ggj::Colori{255, 0, 0, 255});
+    m_debugManager.setText(0, "Debug: F1/F2/..=change map. Hitbox = F9", ggj::Colori{255, 0, 0, 255});
 }
 
 void ggj::GameManager::draw()

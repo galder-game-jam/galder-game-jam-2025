@@ -123,7 +123,7 @@ namespace ggj
             m_hitbox.setVisible(!m_hitbox.isVisible());
         }
         //Toggle camera-follow
-        if(m_inputManager.keyPressed(KeyboardKey::Enter))
+        if(m_inputManager.keyPressed(KeyboardKey::T))
         {
             m_cameraShouldFollowPlayer = !m_cameraShouldFollowPlayer;
         }
@@ -134,7 +134,7 @@ namespace ggj
         #endif
 
         //Toggle player rotate. Fun!
-        if(m_inputManager.keyPressed(KeyboardKey::Space) || m_inputManager.keyPressed(KeyboardKey::V))
+        if(m_inputManager.keyPressed(KeyboardKey::Enter) || m_inputManager.keyPressed(KeyboardKey::V))
         {
             bool rotationFixedToggle = !m_body->IsFixedRotation();
             m_body->SetFixedRotation(rotationFixedToggle);
